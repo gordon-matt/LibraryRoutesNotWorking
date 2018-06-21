@@ -22,7 +22,7 @@ namespace FrameworkDemo.Data
                 if (options == null)
                 {
                     var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-                    optionsBuilder.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+                    optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
                     options = optionsBuilder.Options;
                 }
                 return options;

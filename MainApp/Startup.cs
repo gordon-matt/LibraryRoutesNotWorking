@@ -86,7 +86,7 @@ namespace FrameworkDemo
 
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(connectionString));
+                options.UseSqlServer(connectionString));
 
             // This must be added BEFORE we call AddIdentity().
             // For further info, see: https://github.com/aspnet/Identity/issues/1112
