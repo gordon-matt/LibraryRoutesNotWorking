@@ -1,0 +1,42 @@
+﻿@{
+    string rtlClass = System.Globalization.CultureInfo.CurrentCulture.TextInfo.IsRightToLeft ? "k-rtl" : string.Empty;
+    string cultureCode = ViewBag.CultureCode;
+}
+
+<template>
+    <require from="aurelia-kendoui-bridge/grid/grid"></require>
+    <require from="aurelia-kendoui-bridge/grid/col"></require>
+    <require from="aurelia-kendoui-bridge/common/template"></require>
+
+    @Html.Hidden("GridPageSize", SiteSettings.DefaultGridPageSize)
+    @Html.Hidden("CultureCode", cultureCode)
+
+    <div id="grid-section" class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <button type="button" click.delegate="exportFile()" class="btn btn-success">
+                <i class="fa fa-download"></i>
+                @T[FrameworkWebLocalizableStrings.General.Export]
+            </button>
+        </div>
+
+        <div class="clearfix"></div>
+        <br />
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 @rtlClass">
+            <ak-grid id="grid"
+                     k-autoBind.bind="false"
+                     k-data-source.bind="datasource"
+                     k-widget.bind="grid"
+                     k-filterable.bind="true"
+                     k-sortable.bind="{ allowUnsort: false }"
+                     k-pageable.bind="{ refresh: true, pageSizes: false }"
+                     k-scrollable.bind="false"
+                     k-editable="inline">
+                <ak-col k-field="Key" k-title="@T[FrameworkWebLocalizableStrings.Localization.LocalizableStringModel.Key]"></ak-col>
+                <ak-col k-field="InvariantValue" k-title="@T[FrameworkWebLocalizableStrings.Localization.LocalizableStringModel.InvariantValue]"></ak-col>
+                <ak-col k-field="LocalizedValue" k-title="@T[FrameworkWebLocalizableStrings.Localization.LocalizableStringModel.LocalizedValue]"></ak-col>
+                <ak-col k-command.bind="['edit', 'destroy']" k-title="&nbsp;" k-width.bind="200" k-attributes.bind="{ class: 'text-center' }"></ak-col>
+            </ak-grid>
+        </div>
+    </div>
+</template>

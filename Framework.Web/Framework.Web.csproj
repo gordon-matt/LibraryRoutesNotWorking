@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>Framework.Web</AssemblyName>
+    <Authors>Matt Gordon</Authors>
+    <Copyright></Copyright>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageId>Framework.Web</PackageId>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.0.0</Version>
+    <Description></Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Content\Images\logo-GrapesJS.png" />
+    <EmbeddedResource Include="Content\Images\logo-TinyMCE.png" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\DateTimeSettings.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\MembershipSettings.cshtml" />
+    <EmbeddedResource Include="Views\Shared\EditorTemplates\SiteSettings.cshtml" />
+    <EmbeddedResource Include="Areas\Admin\Configuration\Views\Settings\Index.cshtml" />
+    <EmbeddedResource Include="Areas\Admin\Configuration\Views\Theme\Index.cshtml" />
+    <EmbeddedResource Include="Areas\Admin\Configuration\Views\_ViewImports.cshtml" />
+    <EmbeddedResource Include="Areas\Admin\Localization\Views\Language\Index.cshtml" />
+    <EmbeddedResource Include="Areas\Admin\Localization\Views\LocalizableString\Index.cshtml" />
+    <EmbeddedResource Include="Areas\Admin\Localization\Views\_ViewImports.cshtml" />
+    <EmbeddedResource Include="Areas\Admin\Membership\Views\Membership\Index.cshtml" />
+    <EmbeddedResource Include="Areas\Admin\Membership\Views\_ViewImports.cshtml" />
+    <EmbeddedResource Include="Areas\Admin\ScheduledTasks\Views\ScheduledTask\Index.cshtml" />
+    <EmbeddedResource Include="Areas\Admin\ScheduledTasks\Views\_ViewImports.cshtml" />
+    <EmbeddedResource Include="Areas\Admin\Tenants\Views\Tenant\Index.cshtml" />
+    <EmbeddedResource Include="Areas\Admin\Tenants\Views\_ViewImports.cshtml" />
+    <EmbeddedResource Include="Areas\Admin\Configuration\Scripts\settings.js" />
+    <EmbeddedResource Include="Areas\Admin\Configuration\Scripts\themes.js" />
+    <EmbeddedResource Include="Areas\Admin\Localization\Scripts\index.js" />
+    <EmbeddedResource Include="Areas\Admin\Localization\Scripts\localizableStrings.js" />
+    <EmbeddedResource Include="Areas\Admin\Membership\Scripts\change-password.js" />
+    <EmbeddedResource Include="Areas\Admin\Membership\Scripts\index.js" />
+    <EmbeddedResource Include="Areas\Admin\Membership\Scripts\role.js" />
+    <EmbeddedResource Include="Areas\Admin\Membership\Scripts\user.js" />
+    <EmbeddedResource Include="Areas\Admin\ScheduledTasks\Scripts\index.js" />
+    <EmbeddedResource Include="Areas\Admin\Tenants\Scripts\index.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Areas\Admin\Membership\Scripts\change-password.js" />
+    <None Remove="Areas\Admin\Membership\Scripts\index.js" />
+    <None Remove="Areas\Admin\Membership\Scripts\role.js" />
+    <None Remove="Areas\Admin\Membership\Scripts\user.js" />
+    <None Remove="Content\Images\logo-GrapesJS.png" />
+    <None Remove="Content\Images\logo-TinyMCE.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extenso.AspNetCore.Mvc" Version="1.0.0" />
+    <PackageReference Include="KendoGridBinder" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OData" Version="7.0.0-Nightly201806181242" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />
+    <PackageReference Include="SaasKit.Multitenancy" Version="1.1.4" />
+    <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\Framework.csproj" />
+  </ItemGroup>
+
+</Project>

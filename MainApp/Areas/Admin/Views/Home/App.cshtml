@@ -1,0 +1,28 @@
+﻿<template>
+    <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
+        @Html.AntiForgeryToken()
+    </form>
+
+    @Html.Partial("Header")
+    @Html.Partial("Navigation")
+    <!-- MAIN PANEL -->
+    <div id="main" role="main">
+        @* Ignore Breadcrumbs for now, because of bugs *@
+        @*<!-- RIBBON -->
+        <div id="ribbon">
+            @Html.Partial("Breadcrumbs")
+        </div>
+        <!-- END RIBBON -->*@
+
+        <!-- MAIN CONTENT -->
+        <div id="content">
+            <div class="page-host">
+                <router-view></router-view>
+            </div>
+        </div>
+        <!-- END MAIN CONTENT -->
+    </div>
+    <!-- END MAIN PANEL -->
+    @Html.Partial("Footer")
+
+</template>

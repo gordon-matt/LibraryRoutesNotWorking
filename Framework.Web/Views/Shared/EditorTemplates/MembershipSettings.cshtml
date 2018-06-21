@@ -1,0 +1,60 @@
+﻿@using Framework.Web
+@using Framework.Web.Security.Membership
+@inject Microsoft.Extensions.Localization.IStringLocalizer T
+
+@model MembershipSettings
+
+<div id="settings-content">
+    <p>Generated Passwords</p>
+    <div class="form-group">
+        @Html.LabelFor(m => m.GeneratedPasswordLength)
+        <input type="number" id="GeneratedPasswordLength" name="GeneratedPasswordLength" class="form-control" value.bind="generatedPasswordLength" />
+        @Html.ValidationMessageFor(m => m.GeneratedPasswordLength)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.GeneratedPasswordNumberOfNonAlphanumericChars)
+        <input type="number" id="GeneratedPasswordNumberOfNonAlphanumericChars" name="GeneratedPasswordNumberOfNonAlphanumericChars" class="form-control" value.bind="generatedPasswordNumberOfNonAlphanumericChars" />
+        @Html.ValidationMessageFor(m => m.GeneratedPasswordNumberOfNonAlphanumericChars)
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="DisallowUnconfirmedUserLogin" name="DisallowUnconfirmedUserLogin" checked.bind="disallowUnconfirmedUserLogin" /> @T[FrameworkWebLocalizableStrings.Settings.Membership.DisallowUnconfirmedUserLogin]
+        </label>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function updateModel(viewModel, data) {
+        viewModel.disallowUnconfirmedUserLogin = false;
+        viewModel.generatedPasswordLength = 7;
+        viewModel.generatedPasswordNumberOfNonAlphanumericChars = 3;
+
+        if (data) {
+            if (data.DisallowUnconfirmedUserLogin && (typeof data.DisallowUnconfirmedUserLogin === 'boolean')) {
+                viewModel.disallowUnconfirmedUserLogin = data.DisallowUnconfirmedUserLogin;
+            }
+            if (data.GeneratedPasswordLength) {
+                viewModel.generatedPasswordLength = data.GeneratedPasswordLength;
+            }
+            if (data.GeneratedPasswordNumberOfNonAlphanumericChars) {
+                viewModel.generatedPasswordNumberOfNonAlphanumericChars = data.GeneratedPasswordNumberOfNonAlphanumericChars;
+            }
+        }
+    };
+
+    function cleanUp(viewModel) {
+        delete viewModel.disallowUnconfirmedUserLogin;
+        delete viewModel.generatedPasswordLength;
+        delete viewModel.generatedPasswordNumberOfNonAlphanumericChars;
+    }
+
+    function onBeforeSave(viewModel) {
+        var data = {
+            DisallowUnconfirmedUserLogin: viewModel.disallowUnconfirmedUserLogin,
+            GeneratedPasswordLength: viewModel.generatedPasswordLength,
+            GeneratedPasswordNumberOfNonAlphanumericChars: viewModel.generatedPasswordNumberOfNonAlphanumericChars
+        };
+
+        viewModel.value = JSON.stringify(data);
+    };
+</script>

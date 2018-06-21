@@ -1,0 +1,50 @@
+﻿@{
+    string rtlClass = System.Globalization.CultureInfo.CurrentCulture.TextInfo.IsRightToLeft ? "k-rtl" : string.Empty;
+}
+
+<template>
+    <require from="aurelia-kendoui-bridge/grid/grid"></require>
+    <require from="aurelia-kendoui-bridge/grid/col"></require>
+    <require from="aurelia-kendoui-bridge/common/template"></require>
+
+    @Html.Hidden("GridPageSize", SiteSettings.DefaultGridPageSize)
+
+    <div id="grid-section" class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 @rtlClass">
+            <ak-grid id="grid"
+                     k-data-source.bind="datasource"
+                     k-widget.bind="grid"
+                     k-filterable.bind="true"
+                     k-sortable.bind="{ allowUnsort: false }"
+                     k-pageable.bind="{ refresh: true, pageSizes: false }"
+                     k-scrollable.bind="false">
+                <ak-col k-field="PreviewImageUrl" k-title="@T[FrameworkWebLocalizableStrings.Themes.Model.PreviewImageUrl]" k-filterable.bind="false" k-width.bind="200">
+                    <ak-template>
+                        <img src="${ $this.PreviewImageUrl }" alt="${ $this.Title }" class="thumbnail" style="max-width:200px;" />
+                    </ak-template>
+                </ak-col>
+
+                <ak-col k-field="Title" k-title="@T[FrameworkWebLocalizableStrings.Themes.Model.Title]"></ak-col>
+
+                <ak-col k-field="SupportRtl" k-title="@T[FrameworkWebLocalizableStrings.Themes.Model.SupportRtl]" k-width.bind="70" k-attributes.bind="{ class: 'text-center' }">
+                    <ak-template>
+                        <i class="fa fa-2x ${ $this.SupportRtl ? 'fa-check text-success' : 'fa-times text-danger' }"></i>
+                    </ak-template>
+                </ak-col>
+
+                <ak-col k-field="IsDefaultTheme" k-title="@T[FrameworkWebLocalizableStrings.Themes.Model.IsDefaultTheme]" k-filterable.bind="false" k-width.bind="130" k-attributes.bind="{ class: 'text-center' }">
+                    <ak-template>
+                        <div if.bind="$this.IsDefaultTheme">
+                            <i class="fa fa-check-circle fa-2x text-success"></i>
+                        </div>
+                        <div else>
+                            <button type="button" click.delegate="setTheme($this.Title)" class="btn btn-default btn-sm">
+                                @T[FrameworkWebLocalizableStrings.General.Set]
+                            </button>
+                        </div>
+                    </ak-template>
+                </ak-col>
+            </ak-grid>
+        </div>
+    </div>
+</template>

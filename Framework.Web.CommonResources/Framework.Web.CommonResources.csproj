@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>Framework.Web.CommonResources</AssemblyName>
+    <Authors>Matt Gordon</Authors>
+    <Copyright></Copyright>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageId>Framework.Web.CommonResources</PackageId>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.0.0</Version>
+    <Description></Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Scripts\framework-tinymce.js" />
+    <None Remove="Scripts\generic-http-interceptor.js" />
+    <None Remove="Scripts\section-switching.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\framework-tinymce.js" />
+    <EmbeddedResource Include="Scripts\generic-http-interceptor.js" />
+    <EmbeddedResource Include="Scripts\section-switching.js" />
+  </ItemGroup>
+
+</Project>
