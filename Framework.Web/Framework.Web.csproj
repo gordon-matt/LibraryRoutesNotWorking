@@ -15,42 +15,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Content\Images\logo-GrapesJS.png" />
-    <EmbeddedResource Include="Content\Images\logo-TinyMCE.png" />
-    <EmbeddedResource Include="Views\Shared\EditorTemplates\DateTimeSettings.cshtml" />
-    <EmbeddedResource Include="Views\Shared\EditorTemplates\MembershipSettings.cshtml" />
-    <EmbeddedResource Include="Views\Shared\EditorTemplates\SiteSettings.cshtml" />
-    <EmbeddedResource Include="Areas\Admin\Configuration\Views\Settings\Index.cshtml" />
-    <EmbeddedResource Include="Areas\Admin\Configuration\Views\Theme\Index.cshtml" />
-    <EmbeddedResource Include="Areas\Admin\Configuration\Views\_ViewImports.cshtml" />
-    <EmbeddedResource Include="Areas\Admin\Localization\Views\Language\Index.cshtml" />
-    <EmbeddedResource Include="Areas\Admin\Localization\Views\LocalizableString\Index.cshtml" />
-    <EmbeddedResource Include="Areas\Admin\Localization\Views\_ViewImports.cshtml" />
-    <EmbeddedResource Include="Areas\Admin\Membership\Views\Membership\Index.cshtml" />
-    <EmbeddedResource Include="Areas\Admin\Membership\Views\_ViewImports.cshtml" />
-    <EmbeddedResource Include="Areas\Admin\ScheduledTasks\Views\ScheduledTask\Index.cshtml" />
-    <EmbeddedResource Include="Areas\Admin\ScheduledTasks\Views\_ViewImports.cshtml" />
     <EmbeddedResource Include="Areas\Admin\Tenants\Views\Tenant\Index.cshtml" />
     <EmbeddedResource Include="Areas\Admin\Tenants\Views\_ViewImports.cshtml" />
-    <EmbeddedResource Include="Areas\Admin\Configuration\Scripts\settings.js" />
-    <EmbeddedResource Include="Areas\Admin\Configuration\Scripts\themes.js" />
-    <EmbeddedResource Include="Areas\Admin\Localization\Scripts\index.js" />
-    <EmbeddedResource Include="Areas\Admin\Localization\Scripts\localizableStrings.js" />
-    <EmbeddedResource Include="Areas\Admin\Membership\Scripts\change-password.js" />
-    <EmbeddedResource Include="Areas\Admin\Membership\Scripts\index.js" />
-    <EmbeddedResource Include="Areas\Admin\Membership\Scripts\role.js" />
-    <EmbeddedResource Include="Areas\Admin\Membership\Scripts\user.js" />
-    <EmbeddedResource Include="Areas\Admin\ScheduledTasks\Scripts\index.js" />
     <EmbeddedResource Include="Areas\Admin\Tenants\Scripts\index.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Areas\Admin\Membership\Scripts\change-password.js" />
-    <None Remove="Areas\Admin\Membership\Scripts\index.js" />
-    <None Remove="Areas\Admin\Membership\Scripts\role.js" />
-    <None Remove="Areas\Admin\Membership\Scripts\user.js" />
-    <None Remove="Content\Images\logo-GrapesJS.png" />
-    <None Remove="Content\Images\logo-TinyMCE.png" />
   </ItemGroup>
 
   <ItemGroup>

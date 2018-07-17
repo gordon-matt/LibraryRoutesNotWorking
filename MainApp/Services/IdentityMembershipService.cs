@@ -403,40 +403,7 @@ namespace FrameworkDemo.Services
 
         public async Task<string> GetUserDisplayName(FrameworkUser user)
         {
-            var profile = await GetProfile(user.Id);
-
-            bool hasFamilyName = profile.ContainsKey(AccountUserProfileProvider.Fields.FamilyName);
-            bool hasGivenNames = profile.ContainsKey(AccountUserProfileProvider.Fields.GivenNames);
-
-            if (hasFamilyName && hasGivenNames)
-            {
-                string familyName = profile[AccountUserProfileProvider.Fields.FamilyName];
-                string givenNames = profile[AccountUserProfileProvider.Fields.GivenNames];
-
-                if (profile.ContainsKey(AccountUserProfileProvider.Fields.ShowFamilyNameFirst))
-                {
-                    bool showFamilyNameFirst = bool.Parse(profile[AccountUserProfileProvider.Fields.ShowFamilyNameFirst]);
-
-                    if (showFamilyNameFirst)
-                    {
-                        return familyName + " " + givenNames;
-                    }
-                    return givenNames + " " + familyName;
-                }
-                return givenNames + " " + familyName;
-            }
-            else if (hasFamilyName)
-            {
-                return profile[AccountUserProfileProvider.Fields.FamilyName];
-            }
-            else if (hasGivenNames)
-            {
-                return profile[AccountUserProfileProvider.Fields.GivenNames];
-            }
-            else
-            {
-                return user.UserName;
-            }
+            return user.UserName;
         }
 
         #endregion Users

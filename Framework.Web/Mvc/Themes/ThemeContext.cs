@@ -42,21 +42,7 @@ namespace Framework.Web.Mvc.Themes
                 }
 
                 string theme = string.Empty;
-
-                if (siteSettings.AllowUserToSelectTheme)
-                {
-                    if (workContext.CurrentUser != null)
-                    {
-                        var membershipService = EngineContext.Current.Resolve<IMembershipService>();
-                        string userTheme = AsyncHelper.RunSync(() => membershipService.GetProfileEntry(workContext.CurrentUser.Id, ThemeUserProfileProvider.Fields.PreferredTheme));
-
-                        if (!string.IsNullOrEmpty(userTheme))
-                        {
-                            theme = userTheme;
-                        }
-                    }
-                }
-
+                
                 // Default tenant theme
                 if (string.IsNullOrEmpty(theme))
                 {
@@ -95,7 +81,6 @@ namespace Framework.Web.Mvc.Themes
                 }
 
                 var membershipService = EngineContext.Current.Resolve<IMembershipService>();
-                AsyncHelper.RunSync(() => membershipService.SaveProfileEntry(workContext.CurrentUser.Id, ThemeUserProfileProvider.Fields.PreferredTheme, value));
 
                 //clear cache
                 this.isDesktopThemeCached = false;

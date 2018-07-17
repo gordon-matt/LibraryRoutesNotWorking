@@ -30,22 +30,19 @@ namespace Framework.Identity
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly IMembershipService membershipService;
-        private readonly Lazy<IEnumerable<IUserProfileProvider>> userProfileProviders;
 
         public FrameworkAccountController(
             UserManager<TUser> userManager,
             SignInManager<TUser> signInManager,
             IEmailSender emailSender,
             ILogger<FrameworkAccountController<TUser>> logger,
-            IMembershipService membershipService,
-            Lazy<IEnumerable<IUserProfileProvider>> userProfileProviders)
+            IMembershipService membershipService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
             this.membershipService = membershipService;
-            this.userProfileProviders = userProfileProviders;
         }
 
         [TempData]
@@ -446,107 +443,7 @@ namespace Framework.Identity
         {
             return View();
         }
-
-        #region User Profile
-
-        public virtual async Task<ActionResult> ViewProfile(string userId)
-        {
-            WorkContext.Breadcrumbs.Add(T[LocalizableStrings.Title].Value);
-
-            if (userId == WorkContext.CurrentUser.Id)
-            {
-                ViewBag.Title = T[LocalizableStrings.MyProfile].Value;
-                WorkContext.Breadcrumbs.Add(T[LocalizableStrings.MyProfile].Value);
-                ViewBag.CanEdit = true;
-            }
-            else if (CheckPermission(StandardPermissions.FullAccess))
-            {
-                var user = await membershipService.GetUserById(userId);
-                ViewBag.Title = string.Format(T[LocalizableStrings.ProfileForUser].Value, user.UserName);
-                WorkContext.Breadcrumbs.Add(string.Format(T[LocalizableStrings.ProfileForUser].Value, user.UserName));
-                ViewBag.CanEdit = true;
-            }
-            else
-            {
-                var user = await membershipService.GetUserById(userId);
-                ViewBag.Title = string.Format(T[LocalizableStrings.ProfileForUser].Value, user.UserName);
-                WorkContext.Breadcrumbs.Add(string.Format(T[LocalizableStrings.ProfileForUser].Value, user.UserName));
-                ViewBag.CanEdit = false;
-            }
-
-            return View("Profile", model: userId);
-        }
-
-        public virtual async Task<ActionResult> ViewMyProfile()
-        {
-            return await ViewProfile(WorkContext.CurrentUser.Id);
-        }
-
-        public virtual async Task<ActionResult> EditProfile(string userId)
-        {
-            WorkContext.Breadcrumbs.Add(T[LocalizableStrings.Title].Value);
-
-            if (userId == WorkContext.CurrentUser.Id)
-            {
-                ViewBag.Title = T[LocalizableStrings.EditMyProfile].Value;
-                WorkContext.Breadcrumbs.Add(T[LocalizableStrings.MyProfile].Value, Url.Action("ViewMyProfile"));
-                WorkContext.Breadcrumbs.Add(T[FrameworkWebLocalizableStrings.General.Edit].Value);
-            }
-            else if (CheckPermission(StandardPermissions.FullAccess))
-            {
-                ViewBag.Title = T[LocalizableStrings.EditProfile].Value;
-                var user = await membershipService.GetUserById(userId);
-                WorkContext.Breadcrumbs.Add(string.Format(T[LocalizableStrings.ProfileForUser].Value, user.UserName), Url.Action("ViewProfile", new { userId = userId }));
-                WorkContext.Breadcrumbs.Add(T[FrameworkWebLocalizableStrings.General.Edit].Value);
-            }
-            else
-            {
-                return Unauthorized();
-            }
-
-            return View("ProfileEdit", model: userId);
-        }
-
-        public virtual async Task<ActionResult> EditMyProfile()
-        {
-            return await EditProfile(WorkContext.CurrentUser.Id);
-        }
-
-        [HttpPost]
-        public virtual async Task<ActionResult> UpdateProfile()
-        {
-            var userId = Request.Form["UserId"];
-
-            var newProfile = new Dictionary<string, string>();
-
-            foreach (var provider in userProfileProviders.Value)
-            {
-                foreach (var fieldName in provider.GetFieldNames())
-                {
-                    string value = Request.Form[fieldName];
-
-                    if (value == "true,false")
-                    {
-                        value = "true";
-                    }
-
-                    newProfile.Add(fieldName, value);
-                }
-            }
-
-            await membershipService.UpdateProfile(userId, newProfile);
-
-            //eventBus.Notify<IMembershipEventHandler>(x => x.ProfileChanged(userId, newProfile));
-
-            if (userId == WorkContext.CurrentUser.Id)
-            {
-                return RedirectToAction("ViewMyProfile");
-            }
-            return RedirectToAction("ViewMyProfile", RouteData.Values.Merge(new { userId }));
-        }
-
-        #endregion User Profile
-
+        
         #region Helpers
 
         private void AddErrors(IdentityResult result)

@@ -5,50 +5,20 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Extenso.AspNetCore.Mvc;
 using Extenso.AspNetCore.Mvc.Rendering;
-using Extenso.Collections;
 using Framework.ComponentModel;
 using Framework.Infrastructure;
-using Framework.Security.Membership;
 using Framework.Tenants.Services;
-using Framework.Threading;
-using Framework.Web.Mvc.Controls;
 using Framework.Web.Mvc.KoreUI;
 using Framework.Web.Mvc.KoreUI.Providers;
-using Framework.Web.Mvc.Themes;
-using Framework.Web.Security.Membership.Permissions;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Options;
 
 namespace Framework.Web.Mvc
 {
     public static class HtmlHelperExtensions
     {
-        #region Image Map
-
-        public static IHtmlContent Map(this IHtmlHelper helper, string name, ImageMapHotSpot[] hotSpots)
-        {
-            return helper.Map(name, name, hotSpots);
-        }
-
-        public static IHtmlContent Map(this IHtmlHelper helper, string name, string id, ImageMapHotSpot[] hotSpots)
-        {
-            var map = new ImageMap
-            {
-                ID = id,
-                Name = name,
-                HotSpots = hotSpots
-            };
-
-            return new HtmlString(map.ToString());
-        }
-
-        #endregion Image Map
-
         #region Html Link
 
         public static IHtmlContent EmailLink(this IHtmlHelper helper, string emailAddress)
@@ -174,157 +144,6 @@ namespace Framework.Web.Mvc
             this.html = html;
         }
 
-        public IHtmlContent LanguagesDropDownList(string name, string selectedValue = null, object htmlAttributes = null, string emptyText = null, bool includeInvariant = false, string invariantText = null)
-        {
-            var selectList = GetLanguages(selectedValue, emptyText);
-            return html.DropDownList(name, selectList, htmlAttributes);
-        }
-
-        /// <summary>
-        /// Returns an HTML select element populated with the languages currently specified in the admin area as active
-        /// </summary>
-        /// <param name="expression"> An expression that identifies the property to use. This property should contain a culture code value</param>
-        /// <param name="htmlAttributes">An object that contains the HTML attributes to set for the element.</param>
-        /// <returns></returns>
-        public IHtmlContent LanguagesDropDownListFor(Expression<Func<TModel, string>> expression, object htmlAttributes = null, string emptyText = null, bool includeInvariant = false, string invariantText = null)
-        {
-            var func = expression.Compile();
-            var selectedValue = func(html.ViewData.Model);
-
-            var selectList = GetLanguages(selectedValue, emptyText);
-            return html.DropDownListFor(expression, selectList, htmlAttributes);
-        }
-
-        public IHtmlContent PermissionsCheckBoxList(
-            string name,
-            IEnumerable<string> selectedPermissionIds,
-            object labelHtmlAttributes = null,
-            object checkboxHtmlAttributes = null)
-        {
-            var membershipService = EngineContext.Current.Resolve<IMembershipService>();
-            var permissionProviders = EngineContext.Current.ResolveAll<IPermissionProvider>();
-            var permissions = permissionProviders.SelectMany(x => x.GetPermissions()).ToList();
-            var workContext = EngineContext.Current.Resolve<IWorkContext>();
-
-            var allPermissions = AsyncHelper.RunSync(() => membershipService.GetAllPermissions(workContext.CurrentTenant.Id)).ToHashSet();
-            var T = EngineContext.Current.Resolve<IStringLocalizer>();
-
-            #region First check if all permissions are in the DB
-
-            foreach (var permission in permissions)
-            {
-                if (!allPermissions.Any(x => x.Name == permission.Name))
-                {
-                    var newPermission = new FrameworkPermission
-                    {
-                        Name = permission.Name,
-                        Category = string.IsNullOrEmpty(permission.Category) ? T[FrameworkWebLocalizableStrings.General.Miscellaneous] : permission.Category,
-                        Description = permission.Description
-                    };
-
-                    newPermission.TenantId = workContext.CurrentTenant.Id;
-                    membershipService.InsertPermission(newPermission);
-                    allPermissions.Add(newPermission);
-                }
-            }
-
-            #endregion First check if all permissions are in the DB
-
-            var selectList = new List<ExtendedSelectListItem>();
-            foreach (var categoryGroup in allPermissions.OrderBy(x => x.Category, new PermissionComparer(StringComparer.OrdinalIgnoreCase)).GroupBy(x => x.Category))
-            {
-                selectList.AddRange(categoryGroup.OrderBy(x => x.Description)
-                    .Select(permission => new ExtendedSelectListItem
-                    {
-                        Category = permission.Category,
-                        Text = permission.Description,
-                        Value = permission.Id
-                    }));
-            }
-
-            return html.CheckBoxList(
-                name,
-                selectList,
-                selectedPermissionIds,
-                labelHtmlAttributes: labelHtmlAttributes,
-                checkboxHtmlAttributes: checkboxHtmlAttributes);
-        }
-
-        public IHtmlContent RolesCheckBoxList(
-            string name,
-            IEnumerable<string> selectedRoleIds,
-            object labelHtmlAttributes = null,
-            object checkboxHtmlAttributes = null)
-        {
-            var membershipService = EngineContext.Current.Resolve<IMembershipService>();
-            var workContext = EngineContext.Current.Resolve<IWorkContext>();
-
-            var selectList = AsyncHelper.RunSync(() => membershipService.GetAllRoles(workContext.CurrentTenant.Id))
-                .ToSelectList(
-                    value => value.Id,
-                    text => text.Name);
-
-            //TODO: problem when no roles, which happens now because current tenant does not have an admin role.. only NULL tenant has admin role.
-            //      need to auto create admin roles for each tenant
-
-            return html.CheckBoxList(name, selectList, selectedRoleIds, labelHtmlAttributes: labelHtmlAttributes, checkboxHtmlAttributes: checkboxHtmlAttributes);
-        }
-
-        public IHtmlContent RolesDropDownList(string name, string selectedValue = null, object htmlAttributes = null, string emptyText = null)
-        {
-            var membershipService = EngineContext.Current.Resolve<IMembershipService>();
-            var workContext = EngineContext.Current.Resolve<IWorkContext>();
-
-            var selectList = AsyncHelper.RunSync(() => membershipService.GetAllRoles(workContext.CurrentTenant.Id))
-                .ToSelectList(
-                    value => value.Id,
-                    text => text.Name,
-                    selectedValue,
-                    emptyText);
-
-            return html.DropDownList(name, selectList, htmlAttributes);
-        }
-
-        public IHtmlContent RolesDropDownListFor(Expression<Func<TModel, string>> expression, object htmlAttributes = null, string emptyText = null)
-        {
-            var func = expression.Compile();
-            var selectedValue = func(html.ViewData.Model);
-
-            var membershipService = EngineContext.Current.Resolve<IMembershipService>();
-            var workContext = EngineContext.Current.Resolve<IWorkContext>();
-
-            var selectList = AsyncHelper.RunSync(() => membershipService.GetAllRoles(workContext.CurrentTenant.Id))
-                .ToSelectList(
-                    value => value.Id,
-                    text => text.Name,
-                    selectedValue,
-                    emptyText);
-
-            return html.DropDownListFor(expression, selectList, htmlAttributes);
-        }
-
-        /// <summary>
-        /// Returns an HTML select element populated with the themes currently available
-        /// </summary>
-        /// <param name="expression"> An expression that identifies the property to use. This property should contain a theme name.</param>
-        /// <param name="htmlAttributes">An object that contains the HTML attributes to set for the element.</param>
-        /// <returns></returns>
-        public IHtmlContent ThemesDropDownListFor(Expression<Func<TModel, string>> expression, object htmlAttributes = null, string emptyText = null)
-        {
-            var themeProvider = EngineContext.Current.Resolve<IThemeProvider>();
-            var func = expression.Compile();
-            var selectedValue = func(html.ViewData.Model);
-
-            var selectList = themeProvider.GetThemeConfigurations()
-                .ToSelectList(
-                    value => value.ThemeName,
-                    text => text.ThemeName,
-                    selectedValue,
-                    emptyText);
-
-            return html.DropDownListFor(expression, selectList, htmlAttributes);
-        }
-
         public IHtmlContent TenantsCheckBoxList(
             string name,
             IEnumerable<string> selectedTenantIds,
@@ -372,94 +191,6 @@ namespace Framework.Web.Mvc
                         text => text.Name,
                         selectedValue,
                         emptyText);
-            }
-        }
-
-        //TODO: Test this (should be different per tenant). Use the "UsePerTenant" feature in SaaSKit when registering RequestLocalizationOptions.
-        private static IEnumerable<SelectListItem> GetLanguages(string selectedValue = null, string emptyText = null, bool includeInvariant = false, string invariantText = null)
-        {
-            var requestLocalizationOptions = EngineContext.Current.Resolve<IOptions<RequestLocalizationOptions>>();
-            var languages = requestLocalizationOptions.Value.SupportedCultures.Select(x => new
-            {
-                CultureCode = x.Name,
-                Name = x.NativeName
-            }).ToList();
-
-            if (includeInvariant)
-            {
-                if (string.IsNullOrEmpty(invariantText))
-                {
-                    languages.Insert(0, new { CultureCode = string.Empty, Name = "[ Invariant ]" });
-                }
-                else
-                {
-                    languages.Insert(0, new { CultureCode = string.Empty, Name = invariantText });
-                }
-            }
-
-            return languages
-                .ToSelectList(
-                    value => value.CultureCode,
-                    text => text.Name,
-                    selectedValue,
-                    emptyText);
-        }
-
-        //private static IEnumerable<SelectListItem> GetLanguages(string selectedValue = null, string emptyText = null, bool includeInvariant = false, string invariantText = null)
-        //{
-        //    var languageManager = EngineContext.Current.Resolve<ILanguageManager>();
-        //    var workContext = EngineContext.Current.Resolve<IWorkContext>();
-        //    var languages = languageManager.GetActiveLanguages(workContext.CurrentTenant.Id).ToList();
-
-        //    if (includeInvariant)
-        //    {
-        //        if (string.IsNullOrEmpty(invariantText))
-        //        {
-        //            languages.Insert(0, new Language { CultureCode = null, Name = "[ Invariant ]" });
-        //        }
-        //        else
-        //        {
-        //            languages.Insert(0, new Language { CultureCode = null, Name = invariantText });
-        //        }
-        //    }
-
-        //    return languages
-        //        .ToSelectList(
-        //            value => value.CultureCode,
-        //            text => text.Name,
-        //            selectedValue,
-        //            emptyText);
-        //}
-
-        private class PermissionComparer : IComparer<string>
-        {
-            private readonly IComparer<string> baseComparer;
-
-            public PermissionComparer(IComparer<string> baseComparer)
-            {
-                this.baseComparer = baseComparer;
-            }
-
-            public int Compare(string x, string y)
-            {
-                var value = String.Compare(x, y, StringComparison.Ordinal);
-
-                if (value == 0)
-                {
-                    return 0;
-                }
-
-                if (baseComparer.Compare(x, "System") == 0)
-                {
-                    return -1;
-                }
-
-                if (baseComparer.Compare(y, "System") == 0)
-                {
-                    return 1;
-                }
-
-                return value;
             }
         }
     }

@@ -6,7 +6,6 @@ using Framework.Localization;
 using Framework.Web.Areas.Admin;
 using Framework.Web.Configuration;
 using Framework.Web.Configuration.Services;
-using Framework.Web.Helpers;
 using Framework.Web.Localization;
 using Framework.Web.Localization.Services;
 using Framework.Web.Mvc.EmbeddedResources;
@@ -25,7 +24,6 @@ namespace Framework.Web.Infrastructure
         {
             // Helpers
             builder.RegisterType<WebHelper>().As<IWebHelper>().InstancePerLifetimeScope();
-            builder.RegisterType<DateTimeHelper>().As<IDateTimeHelper>().InstancePerLifetimeScope();
 
             // Caching
             builder.RegisterType<MemoryCacheManager>().As<ICacheManager>().Named<ICacheManager>("Framework_Cache_Static").SingleInstance();
@@ -52,7 +50,6 @@ namespace Framework.Web.Infrastructure
 
             // Permission Providers
             builder.RegisterType<StandardPermissions>().As<IPermissionProvider>().SingleInstance();
-            builder.RegisterType<FrameworkWebPermissions>().As<IPermissionProvider>().SingleInstance();
 
             // Work Context State Providers
             builder.RegisterType<CurrentUserStateProvider>().As<IWorkContextStateProvider>();
@@ -64,14 +61,7 @@ namespace Framework.Web.Infrastructure
             builder.RegisterType<WebCultureManager>().AsImplementedInterfaces().InstancePerLifetimeScope();
             //builder.RegisterType<SiteCultureSelector>().As<ICultureSelector>().SingleInstance();
             builder.RegisterType<CookieCultureSelector>().As<ICultureSelector>().SingleInstance();
-
-            // User Profile Providers
-            builder.RegisterType<AccountUserProfileProvider>().As<IUserProfileProvider>().SingleInstance();
-            builder.RegisterType<ThemeUserProfileProvider>().As<IUserProfileProvider>().SingleInstance();
-
-            // Data / Services
-            builder.RegisterType<GenericAttributeService>().As<IGenericAttributeService>().InstancePerLifetimeScope();
-
+            
             // Rendering
             builder.RegisterType<RazorViewRenderService>().As<IRazorViewRenderService>().SingleInstance();
 

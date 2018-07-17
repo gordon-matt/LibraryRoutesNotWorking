@@ -13,7 +13,6 @@ using Framework.Infrastructure;
 using Framework.Tenants.Domain;
 using Framework.Web;
 using Framework.Web.Infrastructure;
-using Framework.Web.Mvc.Assets;
 using Framework.Web.Mvc.EmbeddedResources;
 using Framework.Web.Mvc.KoreUI;
 using Framework.Web.Mvc.Razor;

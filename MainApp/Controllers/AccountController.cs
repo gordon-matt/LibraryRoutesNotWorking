@@ -23,9 +23,8 @@ namespace FrameworkDemo.Controllers
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger,
-            IMembershipService membershipService,
-            Lazy<IEnumerable<IUserProfileProvider>> userProfileProviders)
-            : base(userManager, signInManager, emailSender, logger, membershipService, userProfileProviders)
+            IMembershipService membershipService)
+            : base(userManager, signInManager, emailSender, logger, membershipService)
         {
         }
 
@@ -204,39 +203,6 @@ namespace FrameworkDemo.Controllers
             return base.AccessDenied();
         }
 
-        #region User Profile
-
-        [Route("profile/{userId}")]
-        public override async Task<ActionResult> ViewProfile(string userId)
-        {
-            return await base.ViewProfile(userId);
-        }
-
-        [Route("my-profile")]
-        public override async Task<ActionResult> ViewMyProfile()
-        {
-            return await base.ViewMyProfile();
-        }
-
-        [Route("profile/edit/{userId}/")]
-        public override async Task<ActionResult> EditProfile(string userId)
-        {
-            return await base.EditProfile(userId);
-        }
-
-        [Route("my-profile/edit")]
-        public override async Task<ActionResult> EditMyProfile()
-        {
-            return await base.EditMyProfile();
-        }
-
-        [HttpPost]
-        [Route("update-profile")]
-        public override async Task<ActionResult> UpdateProfile()
-        {
-            return await base.UpdateProfile();
-        }
-
-        #endregion User Profile
+        
     }
 }
