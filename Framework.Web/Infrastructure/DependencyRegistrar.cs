@@ -41,7 +41,6 @@ namespace Framework.Web.Infrastructure
             builder.RegisterModule<ConfigurationModule>();
             builder.RegisterType<DefaultSettingService>().As<ISettingService>();
             builder.RegisterType<SiteSettings>().As<ISettings>().InstancePerLifetimeScope();
-            builder.RegisterType<MembershipSettings>().As<ISettings>().InstancePerLifetimeScope();
 
             // Navigation
             builder.RegisterType<AureliaRouteProvider>().As<IAureliaRouteProvider>().SingleInstance();

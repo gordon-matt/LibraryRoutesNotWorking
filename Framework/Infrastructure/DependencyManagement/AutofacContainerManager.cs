@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Builder;
-using Framework.Exceptions;
 
 namespace Framework.Infrastructure.DependencyManagement
 {
@@ -165,17 +164,17 @@ namespace Framework.Infrastructure.DependencyManagement
                         var service = Resolve(parameter.ParameterType);
                         if (service == null)
                         {
-                            throw new FrameworkException("Unkown dependency");
+                            throw new ApplicationException("Unkown dependency");
                         }
                         parameterInstances.Add(service);
                     }
                     return Activator.CreateInstance(type, parameterInstances.ToArray());
                 }
-                catch (FrameworkException)
+                catch (ApplicationException)
                 {
                 }
             }
-            throw new FrameworkException("No contructor was found that had all the dependencies satisfied.");
+            throw new ApplicationException("No contructor was found that had all the dependencies satisfied.");
         }
 
         public bool TryResolve<T>(out T instance)

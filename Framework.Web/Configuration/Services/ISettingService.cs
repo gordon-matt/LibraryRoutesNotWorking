@@ -126,7 +126,7 @@ namespace Framework.Web.Configuration.Services
         {
             var type = settings.GetType();
             var key = type.FullName;
-            var value = settings.ToJson();
+            var value = settings.JsonSerialize();
             SaveSettings(key, value, tenantId);
         }
     }

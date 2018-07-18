@@ -8,8 +8,6 @@ using Extenso.AspNetCore.Mvc.Rendering;
 using Framework.ComponentModel;
 using Framework.Infrastructure;
 using Framework.Tenants.Services;
-using Framework.Web.Mvc.KoreUI;
-using Framework.Web.Mvc.KoreUI.Providers;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -109,29 +107,6 @@ namespace Framework.Web.Mvc
         {
             return new Framework<TModel>(html);
         }
-
-        public static KoreUI<TModel> KoreUI<TModel>(this IHtmlHelper<TModel> htmlHelper, IKoreUIProvider provider = null)
-        {
-            if (provider != null)
-            {
-                return new KoreUI<TModel>(htmlHelper, provider);
-            }
-
-            string areaName = (string)htmlHelper.ViewContext.RouteData.DataTokens["area"];
-            if (!string.IsNullOrEmpty(areaName) && KoreUISettings.AreaUIProviders.ContainsKey(areaName))
-            {
-                return new KoreUI<TModel>(htmlHelper, KoreUISettings.AreaUIProviders[areaName]);
-            }
-            return new KoreUI<TModel>(htmlHelper);
-        }
-
-        ///// <summary>
-        ///// Create an HTML tree from a recursive collection of items
-        ///// </summary>
-        //public static TreeView<T> TreeView<T>(this IHtmlHelper html, IEnumerable<T> items)
-        //{
-        //    return new TreeView<T>(html, items);
-        //}
     }
 
     public class Framework<TModel>

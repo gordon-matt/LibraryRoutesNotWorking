@@ -1,9 +1,6 @@
 ﻿using Autofac;
 using Framework.Caching;
 using Framework.Localization.Services;
-using Framework.Logging.Services;
-using Framework.Tasks;
-using Framework.Tasks.Services;
 using Framework.Tenants.Services;
 
 namespace Framework.Infrastructure
@@ -21,8 +18,6 @@ namespace Framework.Infrastructure
 
         public void Register(ContainerBuilder builder, ITypeFinder typeFinder)
         {
-            builder.RegisterType<ClearCacheTask>().As<ITask>().SingleInstance();
-
             // Tenants
             builder.RegisterType<TenantService>().As<ITenantService>().InstancePerDependency();
 
@@ -30,10 +25,6 @@ namespace Framework.Infrastructure
             builder.RegisterType<LanguageService>().As<ILanguageService>().InstancePerDependency();
             builder.RegisterType<LocalizableStringService>().As<ILocalizableStringService>().InstancePerDependency();
             builder.RegisterType<LocalizablePropertyService>().As<ILocalizablePropertyService>().InstancePerDependency();
-
-            builder.RegisterType<ScheduledTaskService>().As<IScheduledTaskService>().InstancePerDependency();
-
-            builder.RegisterType<LogService>().As<ILogService>().InstancePerDependency();
         }
 
         public int Order

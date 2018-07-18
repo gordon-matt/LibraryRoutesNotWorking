@@ -1,18 +1,13 @@
 ﻿//TODO: Review all of this and replace some code with membershipService, same as in Kore
 
 using System;
-using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Framework.Identity.Domain;
 using Framework.Identity.Models.AccountViewModels;
 using Framework.Identity.Services;
 using Framework.Security.Membership;
-using Framework.Web;
 using Framework.Web.Mvc;
-using Framework.Web.Mvc.Routing;
-using Framework.Web.Security.Membership;
-using Framework.Web.Security.Membership.Permissions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -443,7 +438,7 @@ namespace Framework.Identity
         {
             return View();
         }
-        
+
         #region Helpers
 
         private void AddErrors(IdentityResult result)

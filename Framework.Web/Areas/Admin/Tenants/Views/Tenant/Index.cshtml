@@ -46,11 +46,9 @@
 
     <div id="form-section" class="row" style="display:none">
         <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            @using (var panel = Html.KoreUI().Begin(new Panel(state: State.Primary)))
-            {
-                using (var header = panel.BeginHeader(T[FrameworkWebLocalizableStrings.General.Details])) { }
-                using (var body = panel.BeginBody())
-                {
+            <div class="panel panel-default">
+                <div class="panel-heading">Details</div>
+                <div class="panel-body">
                     <form id="form-section-form" role="form" class="form-horizontal">
                         <fieldset>
                             <legend id="form-section-legend"></legend>
@@ -92,8 +90,8 @@
                             </div>
                         </fieldset>
                     </form>
-                }
-            }
+                </div>
+            </div>
         </article>
     </div>
 

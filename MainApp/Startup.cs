@@ -6,7 +6,6 @@ using Extenso.Collections;
 using FrameworkDemo.Data;
 using FrameworkDemo.Data.Domain;
 using FrameworkDemo.Identity;
-using FrameworkDemo.KoreUI;
 using FrameworkDemo.Services;
 using Framework.Identity.Services;
 using Framework.Infrastructure;
@@ -14,7 +13,6 @@ using Framework.Tenants.Domain;
 using Framework.Web;
 using Framework.Web.Infrastructure;
 using Framework.Web.Mvc.EmbeddedResources;
-using Framework.Web.Mvc.KoreUI;
 using Framework.Web.Mvc.Razor;
 using Framework.Web.Tenants;
 using Microsoft.AspNet.OData.Extensions;
@@ -184,9 +182,7 @@ namespace FrameworkDemo
             // FRAMEWORK CONFIG
             //===================================================================
             ServiceProvider = services.ConfigureFrameworkServices(Configuration);
-
-            KoreUISettings.DefaultAdminProvider = new SmartAdminUIProvider();
-
+            
             return ServiceProvider;
         }
 

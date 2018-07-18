@@ -142,72 +142,6 @@ namespace Framework.Web.Infrastructure
             }
         }
 
-        //private static async Task EnsureMembership(IMembershipService membershipService, IEnumerable<int> tenantIds)
-        //{
-        //    // We only run this method to ensure that the admin user has been setup as part of the installation process.
-        //    //  If there are any users already in the DB...
-        //    if ((await membershipService.GetAllUsers(null)).Any())
-        //    {
-        //        // ... we assume the admin user is one of them. No need for further querying...
-        //        return;
-        //    }
-
-        //    var dataSettings = EngineContext.Current.Resolve<DataSettings>();
-
-        //    var adminUser = await membershipService.GetUserByEmail(null, dataSettings.AdminEmail);
-        //    if (adminUser == null)
-        //    {
-        //        await membershipService.InsertUser(
-        //            new FrameworkUser
-        //            {
-        //                TenantId = null,
-        //                UserName = dataSettings.AdminEmail,
-        //                Email = dataSettings.AdminEmail
-        //            },
-        //            dataSettings.AdminPassword);
-
-        //        adminUser = await membershipService.GetUserByEmail(null, dataSettings.AdminEmail);
-
-        //        // TODO: This doesn't work. Gets error like "No owin.Environment item was found in the context."
-        //        //// Confirm User
-        //        //string token = await membershipService.GenerateEmailConfirmationToken(adminUser.Id);
-        //        //await membershipService.ConfirmEmail(adminUser.Id, token);
-
-        //        FrameworkRole administratorsRole = null;
-        //        if (adminUser != null)
-        //        {
-        //            administratorsRole = await membershipService.GetRoleByName(null, FrameworkConstants.Roles.Administrators);
-        //            if (administratorsRole == null)
-        //            {
-        //                await membershipService.InsertRole(new FrameworkRole
-        //                {
-        //                    TenantId = null,
-        //                    Name = FrameworkConstants.Roles.Administrators
-        //                });
-        //                administratorsRole = await membershipService.GetRoleByName(null, FrameworkConstants.Roles.Administrators);
-        //                await membershipService.AssignUserToRoles(null, adminUser.Id, new[] { administratorsRole.Id });
-        //            }
-        //        }
-
-        //        if (membershipService.SupportsRolePermissions && administratorsRole != null)
-        //        {
-        //            var fullAccessPermission = await membershipService.GetPermissionByName(null, StandardPermissions.FullAccess.Name);
-        //            await membershipService.AssignPermissionsToRole(administratorsRole.Id, new[] { fullAccessPermission.Id });
-        //        }
-
-        //        dataSettings.AdminPassword = null;
-        //        DataSettingsManager.SaveSettings(dataSettings);
-        //    }
-
-        //    if (membershipService.SupportsRolePermissions)
-        //    {
-        //        foreach (int tenantId in tenantIds)
-        //        {
-        //            await membershipService.EnsureAdminRoleForTenant(tenantId);
-        //        }
-        //    }
-        //}
-
         private static void EnsureSettings(IEnumerable<int> tenantIds)
         {
             var settingsRepository = EngineContext.Current.Resolve<IRepository<Setting>>();
@@ -225,7 +159,7 @@ namespace Framework.Web.Infrastructure
                 TenantId = null,
                 Name = x.Name,
                 Type = x.GetType().FullName,
-                Value = Activator.CreateInstance(x.GetType()).ToJson()
+                Value = Activator.CreateInstance(x.GetType()).JsonSerialize()
             }).ToList();
 
             if (!settingsToAdd.IsNullOrEmpty())
@@ -255,7 +189,7 @@ namespace Framework.Web.Infrastructure
                     TenantId = tenantId,
                     Name = x.Name,
                     Type = x.GetType().FullName,
-                    Value = Activator.CreateInstance(x.GetType()).ToJson()
+                    Value = Activator.CreateInstance(x.GetType()).JsonSerialize()
                 }).ToList();
 
                 if (!settingsToAdd.IsNullOrEmpty())

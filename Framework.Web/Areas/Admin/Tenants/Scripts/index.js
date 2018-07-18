@@ -38,10 +38,6 @@ export class ViewModel {
     // Aurelia Component Lifecycle Methods
 
     async attached() {
-        // Load translations first, else will have errors
-        let response = await this.http.get("/admin/tenants/get-translations");
-        this.translations = response.content;
-
         this.datasource.pageSize = $("#GridPageSize").val();
 
         this.sectionSwitcher = new SectionSwitcher('grid-section');
@@ -64,7 +60,7 @@ export class ViewModel {
         this.hosts = null;
 
         this.validator.resetForm();
-        $("#form-section-legend").html(this.translations.create);
+        $("#form-section-legend").html("Create");
         this.sectionSwitcher.swap('form-section');
     }
 
@@ -78,18 +74,18 @@ export class ViewModel {
         this.hosts = entity.Hosts;
 
         this.validator.resetForm();
-        $("#form-section-legend").html(this.translations.edit);
+        $("#form-section-legend").html("Edit");
         this.sectionSwitcher.swap('form-section');
     }
 
     async remove(id) {
-        if (confirm(this.translations.deleteRecordConfirm)) {
+        if (confirm("Are you sure you want to delete this record?")) {
             let response = await this.http.delete(`${this.apiUrl}(${id})`);
             if (response.isSuccess) {
-                $.notify({ message: this.translations.deleteRecordSuccess, icon: 'fa fa-check' }, { type: 'success' });
+                $.notify({ message: "Successfully deleted record!", icon: 'fa fa-check' }, { type: 'success' });
             }
             else {
-                $.notify({ message: this.translations.deleteRecordError, icon: 'fa fa-exclamation-triangle' }, { type: 'danger' });
+                $.notify({ message: "There was a problem when trying to delete the record.", icon: 'fa fa-exclamation-triangle' }, { type: 'danger' });
             }
 
             this.refreshGrid();
@@ -114,20 +110,20 @@ export class ViewModel {
             let response = await this.http.post(this.apiUrl, record);
             //console.log('response: ' + JSON.stringify(response));
             if (response.isSuccess) {
-                $.notify({ message: this.translations.insertRecordSuccess, icon: 'fa fa-check' }, { type: 'success' });
+                $.notify({ message: "Successfully inserted record!", icon: 'fa fa-check' }, { type: 'success' });
             }
             else {
-                $.notify({ message: this.translations.insertRecordError, icon: 'fa fa-exclamation-triangle' }, { type: 'danger' });
+                $.notify({ message: "There was a problem when trying to insert the record.", icon: 'fa fa-exclamation-triangle' }, { type: 'danger' });
             }
         }
         else {
             let response = await this.http.put(`${this.apiUrl}(${this.id})`, record);
             //console.log('response: ' + JSON.stringify(response));
             if (response.isSuccess) {
-                $.notify({ message: this.translations.updateRecordSuccess, icon: 'fa fa-check' }, { type: 'success' });
+                $.notify({ message: "Successfully updated record!", icon: 'fa fa-check' }, { type: 'success' });
             }
             else {
-                $.notify({ message: this.translations.updateRecordError, icon: 'fa fa-exclamation-triangle' }, { type: 'danger' });
+                $.notify({ message: "There was a problem when trying to update the record.", icon: 'fa fa-exclamation-triangle' }, { type: 'danger' });
             }
         }
 

@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Extenso;
-using Framework.Exceptions;
 using Framework.Infrastructure;
 using Framework.Security.Membership;
 using Framework.Tenants;
@@ -83,7 +82,7 @@ namespace Framework.Web
                     }
                     if (tenant == null)
                     {
-                        throw new FrameworkException("No tenant could be loaded");
+                        throw new ApplicationException("No tenant could be loaded");
                     }
 
                     cachedTenant = tenant;

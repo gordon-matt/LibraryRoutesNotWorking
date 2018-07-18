@@ -5,12 +5,9 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Extenso.Collections;
 using Extenso.Data.Entity;
-using FrameworkDemo.Data.Domain;
 using Framework;
-using Framework.Exceptions;
 using Framework.Security.Membership;
-using Framework.Web;
-using Framework.Web.Security.Membership;
+using FrameworkDemo.Data.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -254,7 +251,7 @@ namespace FrameworkDemo.Services
             if (!result.Succeeded)
             {
                 string errorMessage = string.Join(Environment.NewLine, result.Errors.Select(x => x.Description));
-                throw new FrameworkException(errorMessage);
+                throw new ApplicationException(errorMessage);
             }
         }
 
@@ -273,7 +270,7 @@ namespace FrameworkDemo.Services
                 if (!result.Succeeded)
                 {
                     string errorMessage = string.Join(Environment.NewLine, result.Errors.Select(x => x.Description));
-                    throw new FrameworkException(errorMessage);
+                    throw new ApplicationException(errorMessage);
                 }
             }
         }
@@ -299,7 +296,7 @@ namespace FrameworkDemo.Services
         //            if (!result.Succeeded)
         //            {
         //                string errorMessage = string.Join(Environment.NewLine, result.Errors.Select(x => x.Description));
-        //                throw new FrameworkException(errorMessage);
+        //                throw new ApplicationException(errorMessage);
         //            }
         //        }
         //        cachedUserRoles.Remove(uId);
@@ -314,7 +311,7 @@ namespace FrameworkDemo.Services
         //            if (!result.Succeeded)
         //            {
         //                string errorMessage = string.Join(Environment.NewLine, result.Errors.Select(x => x.Description));
-        //                throw new FrameworkException(errorMessage);
+        //                throw new ApplicationException(errorMessage);
         //            }
         //        }
         //        cachedUserRoles.Remove(uId);
@@ -385,7 +382,7 @@ namespace FrameworkDemo.Services
             if (!result.Succeeded)
             {
                 string errorMessage = string.Join(Environment.NewLine, result.Errors.Select(x => x.Description));
-                throw new FrameworkException(errorMessage);
+                throw new ApplicationException(errorMessage);
             }
 
             result = await userManager.AddPasswordAsync(user, newPassword);
@@ -393,7 +390,7 @@ namespace FrameworkDemo.Services
             if (!result.Succeeded)
             {
                 string errorMessage = string.Join(Environment.NewLine, result.Errors.Select(x => x.Description));
-                throw new FrameworkException(errorMessage);
+                throw new ApplicationException(errorMessage);
             }
             //var user = userManager.FindById(id);
             //string passwordHash = userManager.PasswordHasher.HashPassword(newPassword);
@@ -512,7 +509,7 @@ namespace FrameworkDemo.Services
             if (!result.Succeeded)
             {
                 string errorMessage = string.Join(Environment.NewLine, result.Errors.Select(x => x.Description));
-                throw new FrameworkException(errorMessage);
+                throw new ApplicationException(errorMessage);
             }
         }
 
@@ -529,7 +526,7 @@ namespace FrameworkDemo.Services
                 if (!result.Succeeded)
                 {
                     string errorMessage = string.Join(Environment.NewLine, result.Errors.Select(x => x.Description));
-                    throw new FrameworkException(errorMessage);
+                    throw new ApplicationException(errorMessage);
                 }
             }
         }
