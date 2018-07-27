@@ -7,11 +7,11 @@ using Extenso.Collections;
 using Extenso.Data.Entity;
 using Framework;
 using Framework.Security.Membership;
-using FrameworkDemo.Data.Domain;
+using MainApp.Data.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace FrameworkDemo.Services
+namespace MainApp.Services
 {
     public abstract class IdentityMembershipService : IMembershipService
     {

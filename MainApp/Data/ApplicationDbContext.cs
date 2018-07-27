@@ -1,8 +1,8 @@
-﻿using FrameworkDemo.Data.Domain;
+﻿using MainApp.Data.Domain;
 using Framework.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace FrameworkDemo.Data
+namespace MainApp.Data
 {
     public class ApplicationDbContext : FrameworkIdentityDbContext<ApplicationUser, ApplicationRole>
     {

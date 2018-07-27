@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-namespace FrameworkDemo.Views.Manage
+namespace MainApp.Views.Manage
 {
     public static class ManageNavPages
     {

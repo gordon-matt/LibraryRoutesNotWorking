@@ -3,7 +3,6 @@ using System.Linq;
 using Framework.Infrastructure;
 using Framework.Security.Membership;
 using Framework.Threading;
-using Framework.Web.Configuration;
 
 namespace Framework.Web.Mvc.Themes
 {
@@ -14,19 +13,16 @@ namespace Framework.Web.Mvc.Themes
     {
         private readonly IWorkContext workContext;
         private readonly IThemeProvider themeProvider;
-        private readonly SiteSettings siteSettings;
 
         private bool isDesktopThemeCached;
         private string cachedDesktopThemeName;
         
         public ThemeContext(
             IWorkContext workContext,
-            IThemeProvider themeProvider,
-            SiteSettings siteSettings)
+            IThemeProvider themeProvider)
         {
             this.workContext = workContext;
             this.themeProvider = themeProvider;
-            this.siteSettings = siteSettings;
         }
 
         /// <summary>
@@ -46,7 +42,7 @@ namespace Framework.Web.Mvc.Themes
                 // Default tenant theme
                 if (string.IsNullOrEmpty(theme))
                 {
-                    theme = siteSettings.DefaultTheme ?? "Default";
+                    theme = "Default";
                 }
 
                 // Ensure that theme exists
@@ -70,11 +66,6 @@ namespace Framework.Web.Mvc.Themes
             }
             set
             {
-                if (!siteSettings.AllowUserToSelectTheme)
-                {
-                    return;
-                }
-
                 if (workContext.CurrentUser == null)
                 {
                     return;

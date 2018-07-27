@@ -1,23 +1,14 @@
-﻿using Framework.Web.Configuration;
-using Framework.Web.Mvc;
+﻿using Framework.Web.Mvc;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FrameworkDemo.Controllers
+namespace MainApp.Controllers
 {
     //[Authorize]
     public class HomeController : FrameworkController
     {
-        private readonly SiteSettings siteSettings;
-
-        public HomeController(SiteSettings siteSettings)
-        {
-            this.siteSettings = siteSettings;
-        }
-
         [Route("")]
         public IActionResult Index()
         {
-            ViewBag.Title = siteSettings.HomePageTitle;
             return View();
         }
 

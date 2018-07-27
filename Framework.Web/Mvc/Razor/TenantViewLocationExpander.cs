@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Framework.Infrastructure;
-using Framework.Web.Configuration;
 using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace Framework.Web.Mvc.Razor
@@ -14,8 +13,7 @@ namespace Framework.Web.Mvc.Razor
         {
             base.PopulateValues(context);
             //context.Values[THEME_KEY] = context.ActionContext.HttpContext.GetTenant<Tenant>()?.Theme;
-            var siteSettings = EngineContext.Current.Resolve<SiteSettings>();
-            context.Values[THEME_KEY] = siteSettings.DefaultTheme;
+            context.Values[THEME_KEY] = "Default";
         }
 
         public override IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context, IEnumerable<string> viewLocations)

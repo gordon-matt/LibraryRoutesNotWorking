@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace FrameworkDemo.Data
+namespace MainApp.Data
 {
     public class ApplicationDbContextFactory : IDbContextFactory
     {

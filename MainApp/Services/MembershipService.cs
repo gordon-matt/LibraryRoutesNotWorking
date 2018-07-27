@@ -1,8 +1,8 @@
 ﻿using Extenso.Data.Entity;
-using FrameworkDemo.Data.Domain;
+using MainApp.Data.Domain;
 using Microsoft.AspNetCore.Identity;
 
-namespace FrameworkDemo.Services
+namespace MainApp.Services
 {
     public class MembershipService : IdentityMembershipService
     {

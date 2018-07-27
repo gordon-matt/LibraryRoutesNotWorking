@@ -3,7 +3,7 @@ using Framework.Data.Entity.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FrameworkDemo.Data.Domain
+namespace MainApp.Data.Domain
 {
     public class RolePermission : IEntity
     {

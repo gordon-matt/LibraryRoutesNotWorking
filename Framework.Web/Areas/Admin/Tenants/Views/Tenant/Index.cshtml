@@ -7,8 +7,6 @@
     <require from="aurelia-kendoui-bridge/grid/col"></require>
     <require from="aurelia-kendoui-bridge/common/template"></require>
 
-    @Html.Hidden("GridPageSize", SiteSettings.DefaultGridPageSize)
-
     <div id="grid-section" class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <button click.delegate="create()" class="btn btn-primary">

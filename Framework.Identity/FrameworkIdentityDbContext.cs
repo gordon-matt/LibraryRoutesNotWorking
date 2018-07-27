@@ -1,5 +1,4 @@
-﻿using Framework.Configuration.Domain;
-using Framework.Data.Entity.EntityFramework;
+﻿using Framework.Data.Entity.EntityFramework;
 using Framework.Identity.Domain;
 using Framework.Infrastructure;
 using Framework.Localization.Domain;
@@ -30,15 +29,13 @@ namespace Framework.Identity
         public DbSet<LocalizableProperty> LocalizableProperties { get; set; }
 
         public DbSet<LocalizableString> LocalizableStrings { get; set; }
-        
-        public DbSet<Setting> Settings { get; set; }
 
         public DbSet<Tenant> Tenants { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             var configurations = EngineContext.Current.ResolveAll<IFrameworkEntityTypeConfiguration>();
 
             foreach (dynamic configuration in configurations)

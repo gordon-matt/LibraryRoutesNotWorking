@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FrameworkDemo.Models
+namespace MainApp.Models
 {
     public struct RequireJsConfig
     {

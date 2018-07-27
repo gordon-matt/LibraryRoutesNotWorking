@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using Extenso.Collections;
-using FrameworkDemo.Data;
-using FrameworkDemo.Data.Domain;
-using FrameworkDemo.Identity;
-using FrameworkDemo.Services;
+using MainApp.Data;
+using MainApp.Data.Domain;
+using MainApp.Identity;
+using MainApp.Services;
 using Framework.Identity.Services;
 using Framework.Infrastructure;
 using Framework.Tenants.Domain;
@@ -40,7 +40,7 @@ using NLog.Targets.Wrappers;
 using NLog.Web;
 using Framework.Web.CommonResources;
 
-namespace FrameworkDemo
+namespace MainApp
 {
     public class Startup
     {

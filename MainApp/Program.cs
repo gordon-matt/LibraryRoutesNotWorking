@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using NLog.Web;
 
-namespace FrameworkDemo
+namespace MainApp
 {
     public class Program
     {

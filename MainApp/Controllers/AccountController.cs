@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FrameworkDemo.Data.Domain;
+using MainApp.Data.Domain;
 using Framework.Identity;
 using Framework.Identity.Models.AccountViewModels;
 using Framework.Identity.Services;
@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace FrameworkDemo.Controllers
+namespace MainApp.Controllers
 {
     [Authorize]
     [Route("account")]

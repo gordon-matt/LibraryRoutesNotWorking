@@ -247,7 +247,6 @@
                 public const string AdminLayoutPath = "Framework.Web/Settings.Site.AdminLayoutPath";
                 public const string AllowUserToSelectTheme = "Framework.Web/Settings.Site.AllowUserToSelectTheme";
                 public const string DefaultTheme = "Framework.Web/Settings.Site.DefaultTheme";
-                public const string DefaultFrontendLayoutPath = "Framework.Web/Settings.Site.DefaultFrontendLayoutPath";
                 public const string DefaultGridPageSize = "Framework.Web/Settings.Site.DefaultGridPageSize";
                 public const string DefaultLanguage = "Framework.Web/Settings.Site.DefaultLanguage";
                 public const string DefaultMetaDescription = "Framework.Web/Settings.Site.DefaultMetaDescription";

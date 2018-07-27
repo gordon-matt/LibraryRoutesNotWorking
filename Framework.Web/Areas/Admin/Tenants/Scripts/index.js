@@ -38,8 +38,6 @@ export class ViewModel {
     // Aurelia Component Lifecycle Methods
 
     async attached() {
-        this.datasource.pageSize = $("#GridPageSize").val();
-
         this.sectionSwitcher = new SectionSwitcher('grid-section');
 
         this.validator = $("#form-section-form").validate({

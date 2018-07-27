@@ -3,14 +3,10 @@ using Extenso.AspNetCore.Mvc.Rendering;
 using Framework.Caching;
 using Framework.Infrastructure;
 using Framework.Localization;
-using Framework.Web.Areas.Admin;
-using Framework.Web.Configuration;
-using Framework.Web.Configuration.Services;
 using Framework.Web.Localization;
 using Framework.Web.Localization.Services;
 using Framework.Web.Mvc.EmbeddedResources;
 using Framework.Web.Mvc.Themes;
-using Framework.Web.Navigation;
 using Framework.Web.Security.Membership;
 using Framework.Web.Security.Membership.Permissions;
 
@@ -37,15 +33,8 @@ namespace Framework.Web.Infrastructure
             // Security
             builder.RegisterType<RolesBasedAuthorizationService>().As<IAuthorizationService>().SingleInstance();
 
-            // Configuration
-            builder.RegisterModule<ConfigurationModule>();
-            builder.RegisterType<DefaultSettingService>().As<ISettingService>();
-            builder.RegisterType<SiteSettings>().As<ISettings>().InstancePerLifetimeScope();
-
             // Navigation
             builder.RegisterType<AureliaRouteProvider>().As<IAureliaRouteProvider>().SingleInstance();
-            builder.RegisterType<NavigationManager>().As<INavigationManager>().InstancePerDependency();
-            builder.RegisterType<NavigationProvider>().As<INavigationProvider>().SingleInstance();
 
             // Permission Providers
             builder.RegisterType<StandardPermissions>().As<IPermissionProvider>().SingleInstance();
@@ -60,7 +49,7 @@ namespace Framework.Web.Infrastructure
             builder.RegisterType<WebCultureManager>().AsImplementedInterfaces().InstancePerLifetimeScope();
             //builder.RegisterType<SiteCultureSelector>().As<ICultureSelector>().SingleInstance();
             builder.RegisterType<CookieCultureSelector>().As<ICultureSelector>().SingleInstance();
-            
+
             // Rendering
             builder.RegisterType<RazorViewRenderService>().As<IRazorViewRenderService>().SingleInstance();
 

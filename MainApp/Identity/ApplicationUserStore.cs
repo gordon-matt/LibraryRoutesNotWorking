@@ -1,10 +1,10 @@
-﻿using FrameworkDemo.Data;
-using FrameworkDemo.Data.Domain;
+﻿using MainApp.Data;
+using MainApp.Data.Domain;
 using Framework.Identity;
 using Framework.Identity.Domain;
 using Microsoft.AspNetCore.Identity;
 
-namespace FrameworkDemo.Identity
+namespace MainApp.Identity
 {
     public class ApplicationUserStore : ApplicationUserStore<ApplicationUser>
     {

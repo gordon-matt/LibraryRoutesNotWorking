@@ -3,7 +3,7 @@ using Framework.Tenants.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FrameworkDemo.Data.Domain
+namespace MainApp.Data.Domain
 {
     public class UserProfileEntry : ITenantEntity
     {

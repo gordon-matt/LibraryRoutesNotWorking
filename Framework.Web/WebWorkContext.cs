@@ -8,7 +8,6 @@ using Framework.Security.Membership;
 using Framework.Tenants;
 using Framework.Tenants.Domain;
 using Framework.Tenants.Services;
-using Framework.Web.Navigation;
 
 namespace Framework.Web
 {
@@ -24,7 +23,6 @@ namespace Framework.Web
         {
             webHelper = EngineContext.Current.Resolve<IWebHelper>();
             workContextStateProviders = EngineContext.Current.ResolveAll<IWorkContextStateProvider>();
-            Breadcrumbs = new BreadcrumbCollection();
         }
 
         #region IWorkContext Members
@@ -39,8 +37,6 @@ namespace Framework.Web
         {
             stateResolvers[name] = () => value;
         }
-
-        public BreadcrumbCollection Breadcrumbs { get; set; }
 
         public string CurrentTheme
         {

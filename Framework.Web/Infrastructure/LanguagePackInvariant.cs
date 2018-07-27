@@ -175,7 +175,6 @@ namespace Framework.Web.Infrastructure
 
             { FrameworkWebLocalizableStrings.Settings.Site.AdminLayoutPath, "Admin Layout Path" },
             { FrameworkWebLocalizableStrings.Settings.Site.AllowUserToSelectTheme, "Allow User To Select Theme" },
-            { FrameworkWebLocalizableStrings.Settings.Site.DefaultFrontendLayoutPath, "Default Frontend Layout Path" },
             { FrameworkWebLocalizableStrings.Settings.Site.DefaultGridPageSize, "Default Grid Page Size" },
             { FrameworkWebLocalizableStrings.Settings.Site.DefaultLanguage, "Default Language" },
             { FrameworkWebLocalizableStrings.Settings.Site.DefaultMetaDescription, "Default Meta Description" },

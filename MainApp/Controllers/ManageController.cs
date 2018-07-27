@@ -1,6 +1,6 @@
 ﻿using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using FrameworkDemo.Data.Domain;
+using MainApp.Data.Domain;
 using Framework.Identity;
 using Framework.Identity.Models.ManageViewModels;
 using Framework.Identity.Services;
@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace FrameworkDemo.Controllers
+namespace MainApp.Controllers
 {
     [Authorize]
     [Route("manage")]

@@ -1,6 +1,6 @@
 ﻿//using Microsoft.AspNetCore.Mvc;
 
-//namespace FrameworkDemo.Controllers
+//namespace MainApp.Controllers
 //{
 //    public class BaseController : Controller
 //    {

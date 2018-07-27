@@ -1,8 +1,8 @@
-﻿using FrameworkDemo.Data.Domain;
+﻿using MainApp.Data.Domain;
 using Framework.Identity;
 using Microsoft.AspNetCore.Identity;
 
-namespace FrameworkDemo.Identity
+namespace MainApp.Identity
 {
     public class ApplicationRoleValidator : FrameworkRoleValidator<ApplicationRole>
     {

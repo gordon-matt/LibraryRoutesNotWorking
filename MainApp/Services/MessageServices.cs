@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Framework.Identity.Services;
 
-namespace FrameworkDemo.Services
+namespace MainApp.Services
 {
     // This class is used by the application to send Email and SMS
     // when you turn on two-factor authentication in ASP.NET Identity.

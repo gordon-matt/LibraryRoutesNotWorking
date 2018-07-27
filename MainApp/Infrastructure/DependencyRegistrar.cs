@@ -1,16 +1,14 @@
 ﻿using Autofac;
 using Extenso.Data.Entity;
-using FrameworkDemo.Areas.Admin;
-using FrameworkDemo.Data;
-using FrameworkDemo.Services;
-using Framework.Data.Entity.EntityFramework;
 using Framework.Infrastructure;
 using Framework.Localization;
 using Framework.Security.Membership;
 using Framework.Web.Infrastructure;
-using Framework.Web.Navigation;
+using MainApp.Areas.Admin;
+using MainApp.Data;
+using MainApp.Services;
 
-namespace FrameworkDemo.Infrastructure
+namespace MainApp.Infrastructure
 {
     public class DependencyRegistrar : IDependencyRegistrar<ContainerBuilder>
     {
@@ -35,9 +33,6 @@ namespace FrameworkDemo.Infrastructure
 
             // Localization
             builder.RegisterType<LanguagePackInvariant>().As<ILanguagePack>().InstancePerDependency();
-
-            // Navigation
-            builder.RegisterType<AdminNavigationProvider>().As<INavigationProvider>().SingleInstance();
         }
     }
 }

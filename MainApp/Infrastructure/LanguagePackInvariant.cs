@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Framework.Localization;
 
-namespace FrameworkDemo.Infrastructure
+namespace MainApp.Infrastructure
 {
     public class LanguagePackInvariant : ILanguagePack
     {

@@ -2,7 +2,7 @@
 using Framework.Web;
 using Framework.Web.Infrastructure;
 
-namespace FrameworkDemo.Areas.Admin
+namespace MainApp.Areas.Admin
 {
     public class AdminAureliaRouteProvider : IAureliaRouteProvider
     {

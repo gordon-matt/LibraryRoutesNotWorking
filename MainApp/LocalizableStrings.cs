@@ -1,4 +1,4 @@
-﻿namespace FrameworkDemo
+﻿namespace MainApp
 {
     public static class LocalizableStrings
     {

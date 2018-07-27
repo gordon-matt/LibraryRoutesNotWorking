@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Framework.Identity.Domain;
 
-namespace FrameworkDemo.Data.Domain
+namespace MainApp.Data.Domain
 {
     public class ApplicationRole : FrameworkIdentityRole
     {
