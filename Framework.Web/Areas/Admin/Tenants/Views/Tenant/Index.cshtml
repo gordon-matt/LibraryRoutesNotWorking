@@ -11,7 +11,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <button click.delegate="create()" class="btn btn-primary">
                 <i class="fa fa-plus"></i>
-                @T[FrameworkWebLocalizableStrings.General.Create]
+                Create
             </button>
         </div>
 
@@ -25,14 +25,14 @@
                      k-sortable.bind="{ allowUnsort: false }"
                      k-pageable.bind="{ refresh: true, pageSizes: false }"
                      k-scrollable.bind="false">
-                <ak-col k-field="Name" k-title="@T[FrameworkWebLocalizableStrings.General.Name]"></ak-col>
+                <ak-col k-field="Name" k-title="Name"></ak-col>
                 <ak-col k-field="Id" k-title="&nbsp;" k-filterable.bind="false" k-width.bind="100" k-attributes.bind="{ class: 'text-center' }">
                     <ak-template>
                         <div class="btn-group">
-                            <button type="button" click.delegate="edit($this.Id)" class="btn btn-default btn-sm" title="@T[FrameworkWebLocalizableStrings.General.Edit]">
+                            <button type="button" click.delegate="edit($this.Id)" class="btn btn-default btn-sm" title="Edit">
                                 <i class="fa fa-edit"></i>
                             </button>
-                            <button type="button" click.delegate="remove($this.Id)" class="btn btn-danger btn-sm" title="@T[FrameworkWebLocalizableStrings.General.Delete]">
+                            <button type="button" click.delegate="remove($this.Id)" class="btn btn-danger btn-sm" title="Delete">
                                 <i class="fa fa-remove"></i>
                             </button>
                         </div>
@@ -53,7 +53,7 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        @Html.Label("Name", T[FrameworkWebLocalizableStrings.General.Name], new { @class = "control-label col-xs-12 col-sm-4 col-md-3 col-lg-3" })
+                                        @Html.Label("Name", "Name", new { @class = "control-label col-xs-12 col-sm-4 col-md-3 col-lg-3" })
                                         <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
                                             <input name="Name" type="text" class="form-control" value.bind="name" />
                                         </div>
@@ -63,7 +63,7 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        @Html.Label("Url", T[FrameworkWebLocalizableStrings.Tenants.Model.Url], new { @class = "control-label col-xs-12 col-sm-4 col-md-3 col-lg-3" })
+                                        @Html.Label("Url", "URL", new { @class = "control-label col-xs-12 col-sm-4 col-md-3 col-lg-3" })
                                         <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
                                             <input name="Name" type="text" class="form-control" value.bind="url" />
                                         </div>
@@ -73,7 +73,7 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        @Html.Label("Hosts", T[FrameworkWebLocalizableStrings.Tenants.Model.Hosts], new { @class = "control-label col-xs-12 col-sm-4 col-md-3 col-lg-3" })
+                                        @Html.Label("Hosts", "Hosts", new { @class = "control-label col-xs-12 col-sm-4 col-md-3 col-lg-3" })
                                         <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
                                             <input name="Name" type="text" class="form-control" value.bind="hosts" />
                                         </div>
@@ -82,8 +82,8 @@
                             </div>
                             <div class="form-group pull-right">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    <button type="button" class="btn btn-default" click.delegate="cancel()">@T[FrameworkWebLocalizableStrings.General.Cancel]</button>
-                                    <button type="button" class="btn btn-primary" click.delegate="save()"><i class="fa fa-save"></i> @T[FrameworkWebLocalizableStrings.General.Save]</button>
+                                    <button type="button" class="btn btn-default" click.delegate="cancel()">Cancel</button>
+                                    <button type="button" class="btn btn-primary" click.delegate="save()"><i class="fa fa-save"></i> Save</button>
                                 </div>
                             </div>
                         </fieldset>

@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Extenso.Data.Entity;
 using Framework.Infrastructure;
-using Framework.Localization;
 using Framework.Security.Membership;
 using Framework.Web.Infrastructure;
 using MainApp.Areas.Admin;
@@ -30,9 +29,6 @@ namespace MainApp.Infrastructure
 
             // Services
             builder.RegisterType<MembershipService>().As<IMembershipService>().InstancePerDependency();
-
-            // Localization
-            builder.RegisterType<LanguagePackInvariant>().As<ILanguagePack>().InstancePerDependency();
         }
     }
 }

@@ -38,12 +38,9 @@ namespace Framework.Web
             stateResolvers[name] = () => value;
         }
 
-        public string CurrentTheme
-        {
-            get => "Default";
-        }
+        public string CurrentTheme => "Default";
 
-        public string CurrentCultureCode => GetState<string>(FrameworkConstants.StateProviders.CurrentCultureCode);
+        public string CurrentCultureCode => "en-US";
 
         public FrameworkUser CurrentUser => GetState<FrameworkUser>(FrameworkConstants.StateProviders.CurrentUser);
 
@@ -75,12 +72,8 @@ namespace Framework.Web
                         // Load the first found tenant
                         tenant = allTenants.FirstOrDefault();
                     }
-                    if (tenant == null)
-                    {
-                        throw new ApplicationException("No tenant could be loaded");
-                    }
 
-                    cachedTenant = tenant;
+                    cachedTenant = tenant ?? throw new ApplicationException("No tenant could be loaded");
                     return cachedTenant;
                 }
                 catch
@@ -104,21 +97,5 @@ namespace Framework.Web
             }
             return () => resolver(this);
         }
-
-        //private Func<object> FindResolverForState<T>(string name)
-        //{
-        //    return () =>
-        //    {
-        //        var resolver = workContextStateProviders
-        //             .Select(wcsp => wcsp.Get<T>(name))
-        //             .FirstOrDefault(value => !Equals(value, default(T)));
-
-        //        if (resolver == null)
-        //        {
-        //            return default(T);
-        //        }
-        //        return resolver(this);
-        //    };
-        //}
     }
 }

@@ -1,12 +1,10 @@
 ﻿using Framework.Data.Entity.EntityFramework;
 using Framework.Identity.Domain;
 using Framework.Infrastructure;
-using Framework.Localization.Domain;
 using Framework.Tenants.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using LanguageEntity = Framework.Localization.Domain.Language;
 
 namespace Framework.Identity
 {
@@ -23,12 +21,6 @@ namespace Framework.Identity
         }
 
         #endregion Constructors
-
-        public DbSet<LanguageEntity> Languages { get; set; }
-
-        public DbSet<LocalizableProperty> LocalizableProperties { get; set; }
-
-        public DbSet<LocalizableString> LocalizableStrings { get; set; }
 
         public DbSet<Tenant> Tenants { get; set; }
 

@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Framework.Localization.Services;
 using Framework.Tenants.Services;
 
 namespace Framework.Infrastructure
@@ -19,11 +18,6 @@ namespace Framework.Infrastructure
         {
             // Tenants
             builder.RegisterType<TenantService>().As<ITenantService>().InstancePerDependency();
-
-            // Localization
-            builder.RegisterType<LanguageService>().As<ILanguageService>().InstancePerDependency();
-            builder.RegisterType<LocalizableStringService>().As<ILocalizableStringService>().InstancePerDependency();
-            builder.RegisterType<LocalizablePropertyService>().As<ILocalizablePropertyService>().InstancePerDependency();
         }
 
         public int Order

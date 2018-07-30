@@ -125,9 +125,7 @@ namespace MainApp
             });
 
             services.AddMultitenancy<Tenant, FrameworkTenantResolver>();
-
-            services.AddFrameworkLocalization();
-
+            
             services.AddOData();
 
             services.AddMvc(ConfigureMvc)

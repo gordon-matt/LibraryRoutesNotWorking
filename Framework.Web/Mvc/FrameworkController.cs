@@ -8,15 +8,12 @@ namespace Framework.Web.Mvc
     public class FrameworkController : Controller
     {
         public ILogger Logger { get; private set; }
-
-        public IStringLocalizer T { get; private set; }
-
+        
         public IWebWorkContext WorkContext { get; private set; }
 
         protected FrameworkController()
         {
             WorkContext = EngineContext.Current.Resolve<IWebWorkContext>();
-            T = EngineContext.Current.Resolve<IStringLocalizer>();
             var loggerFactory = EngineContext.Current.Resolve<ILoggerFactory>();
             Logger = loggerFactory.CreateLogger(GetType());
         }

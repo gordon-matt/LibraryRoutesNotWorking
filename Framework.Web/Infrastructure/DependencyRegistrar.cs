@@ -1,9 +1,6 @@
 ﻿using Autofac;
 using Extenso.AspNetCore.Mvc.Rendering;
 using Framework.Infrastructure;
-using Framework.Localization;
-using Framework.Web.Localization;
-using Framework.Web.Localization.Services;
 using Framework.Web.Mvc.EmbeddedResources;
 using Framework.Web.Security.Membership;
 
@@ -27,14 +24,7 @@ namespace Framework.Web.Infrastructure
 
             // Work Context State Providers
             builder.RegisterType<CurrentUserStateProvider>().As<IWorkContextStateProvider>();
-            builder.RegisterType<CurrentCultureCodeStateProvider>().As<IWorkContextStateProvider>();
-
-            // Localization
-            builder.RegisterType<LanguagePackInvariant>().As<ILanguagePack>().InstancePerDependency();
-            builder.RegisterType<WebCultureManager>().AsImplementedInterfaces().InstancePerLifetimeScope();
-            //builder.RegisterType<SiteCultureSelector>().As<ICultureSelector>().SingleInstance();
-            builder.RegisterType<CookieCultureSelector>().As<ICultureSelector>().SingleInstance();
-
+            
             // Rendering
             builder.RegisterType<RazorViewRenderService>().As<IRazorViewRenderService>().SingleInstance();
 
