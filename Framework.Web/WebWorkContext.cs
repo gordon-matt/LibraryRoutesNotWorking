@@ -3,11 +3,11 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Extenso;
+using Extenso.Data.Entity;
 using Framework.Infrastructure;
 using Framework.Security.Membership;
 using Framework.Tenants;
 using Framework.Tenants.Domain;
-using Framework.Tenants.Services;
 
 namespace Framework.Web
 {
@@ -63,8 +63,8 @@ namespace Framework.Web
                         host = host.LeftOf(':');
                     }
 
-                    var tenantService = EngineContext.Current.Resolve<ITenantService>();
-                    var allTenants = tenantService.Find();
+                    var tenantRepository = EngineContext.Current.Resolve<IRepository<Tenant>>();
+                    var allTenants = tenantRepository.Find();
                     var tenant = allTenants.FirstOrDefault(s => s.ContainsHostValue(host));
 
                     if (tenant == null)

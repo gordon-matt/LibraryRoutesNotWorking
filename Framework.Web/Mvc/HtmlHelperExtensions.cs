@@ -2,8 +2,9 @@
 using System.Linq;
 using Extenso.AspNetCore.Mvc;
 using Extenso.AspNetCore.Mvc.Rendering;
+using Extenso.Data.Entity;
 using Framework.Infrastructure;
-using Framework.Tenants.Services;
+using Framework.Tenants.Domain;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -104,9 +105,9 @@ namespace Framework.Web.Mvc
 
         private static IEnumerable<SelectListItem> GetTenantsMultiSelectList(IEnumerable<string> selectedValues = null, string emptyText = null)
         {
-            var service = EngineContext.Current.Resolve<ITenantService>();
+            var repository = EngineContext.Current.Resolve<IRepository<Tenant>>();
 
-            using (var connection = service.OpenConnection())
+            using (var connection = repository.OpenConnection())
             {
                 return connection.Query()
                     .OrderBy(x => x.Name)
@@ -121,9 +122,9 @@ namespace Framework.Web.Mvc
 
         private static IEnumerable<SelectListItem> GetTenantsSelectList(string selectedValue = null, string emptyText = null)
         {
-            var service = EngineContext.Current.Resolve<ITenantService>();
+            var repository = EngineContext.Current.Resolve<IRepository<Tenant>>();
 
-            using (var connection = service.OpenConnection())
+            using (var connection = repository.OpenConnection())
             {
                 return connection.Query()
                     .OrderBy(x => x.Name)

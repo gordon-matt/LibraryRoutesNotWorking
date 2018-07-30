@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Extenso.Data.Entity;
 using Framework.Infrastructure;
 using Framework.Security.Membership;
 using Framework.Tenants.Domain;
-using Framework.Tenants.Services;
 
 namespace Framework.Web.Infrastructure
 {
@@ -15,10 +15,10 @@ namespace Framework.Web.Infrastructure
         {
             EnsureTenant();
 
-            var tenantService = EngineContext.Current.Resolve<ITenantService>();
+            var tenantRepository = EngineContext.Current.Resolve<IRepository<Tenant>>();
             IEnumerable<int> tenantIds = null;
 
-            using (var connection = tenantService.OpenConnection())
+            using (var connection = tenantRepository.OpenConnection())
             {
                 tenantIds = connection.Query().Select(x => x.Id).ToList();
             }
@@ -35,11 +35,11 @@ namespace Framework.Web.Infrastructure
 
         private static void EnsureTenant()
         {
-            var tenantService = EngineContext.Current.Resolve<ITenantService>();
+            var tenantRepository = EngineContext.Current.Resolve<IRepository<Tenant>>();
 
-            if (tenantService.Count() == 0)
+            if (tenantRepository.Count() == 0)
             {
-                tenantService.Insert(new Tenant
+                tenantRepository.Insert(new Tenant
                 {
                     Name = "Default",
                     Url = "my-domain.com",

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Extenso.Collections;
+using Extenso.Data.Entity;
 using Framework.Tenants;
 using Framework.Tenants.Domain;
-using Framework.Tenants.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
@@ -15,17 +15,17 @@ namespace Framework.Web.Tenants
 {
     public class FrameworkTenantResolver : MemoryCacheTenantResolver<Tenant>
     {
-        private readonly ITenantService tenantService;
+        private readonly IRepository<Tenant> tenantRepository;
         private IEnumerable<Tenant> tenants;
 
         public FrameworkTenantResolver(
             IMemoryCache cache,
             ILoggerFactory loggerFactory,
-            ITenantService tenantService)
+            IRepository<Tenant> tenantRepository)
             : base(cache, loggerFactory)
         {
-            this.tenantService = tenantService;
-            tenants = tenantService.Find();
+            this.tenantRepository = tenantRepository;
+            tenants = tenantRepository.Find();
         }
 
         protected override string GetContextIdentifier(HttpContext context)
@@ -60,7 +60,7 @@ namespace Framework.Web.Tenants
 
                 if (tenants.IsNullOrEmpty())
                 {
-                    tenants = tenantService.Find();
+                    tenants = tenantRepository.Find();
                 }
 
                 if (tenants.IsNullOrEmpty())
@@ -72,7 +72,7 @@ namespace Framework.Web.Tenants
                         Hosts = host,
                         Url = host
                     };
-                    tenantService.Insert(tenant);
+                    tenantRepository.Insert(tenant);
                 }
                 else
                 {

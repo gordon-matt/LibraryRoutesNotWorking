@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Framework.Web.Infrastructure;
-using Framework.Web.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +9,7 @@ namespace MainApp.Areas.Admin.Controllers
     [Authorize(Roles = Constants.Roles.Administrators)]
     [Area("Admin")]
     [Route("admin")]
-    public class HomeController : FrameworkController
+    public class HomeController : Controller
     {
         private readonly IEnumerable<IAureliaRouteProvider> routeProviders;
 

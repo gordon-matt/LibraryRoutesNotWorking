@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using MainApp.Data.Domain;
+﻿using System.Threading.Tasks;
 using Framework.Identity;
 using Framework.Identity.Models.AccountViewModels;
 using Framework.Identity.Services;
 using Framework.Security.Membership;
-using Framework.Web.Security.Membership;
+using MainApp.Data.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -202,7 +199,5 @@ namespace MainApp.Controllers
         {
             return base.AccessDenied();
         }
-
-        
     }
 }

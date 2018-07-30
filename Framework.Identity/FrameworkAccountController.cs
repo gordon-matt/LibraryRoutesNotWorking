@@ -7,7 +7,6 @@ using Framework.Identity.Domain;
 using Framework.Identity.Models.AccountViewModels;
 using Framework.Identity.Services;
 using Framework.Security.Membership;
-using Framework.Web.Mvc;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +16,7 @@ using Microsoft.Extensions.Logging;
 namespace Framework.Identity
 {
     [Authorize]
-    public abstract class FrameworkAccountController<TUser> : FrameworkController
+    public abstract class FrameworkAccountController<TUser> : Controller
         where TUser : FrameworkIdentityUser, new()
     {
         private readonly UserManager<TUser> _userManager;

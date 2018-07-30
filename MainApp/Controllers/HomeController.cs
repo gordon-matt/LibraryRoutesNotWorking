@@ -1,10 +1,9 @@
-﻿using Framework.Web.Mvc;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace MainApp.Controllers
 {
     //[Authorize]
-    public class HomeController : FrameworkController
+    public class HomeController : Controller
     {
         [Route("")]
         public IActionResult Index()
