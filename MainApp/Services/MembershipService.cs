@@ -9,9 +9,8 @@ namespace MainApp.Services
         public MembershipService(
             IDbContextFactory contextFactory,
             UserManager<ApplicationUser> userManager,
-            RoleManager<ApplicationRole> roleManager,
-            IRepository<UserProfileEntry> userProfileRepository)
-            : base(contextFactory, userManager, roleManager, userProfileRepository)
+            RoleManager<ApplicationRole> roleManager)
+            : base(contextFactory, userManager, roleManager)
         {
         }
     }

@@ -1,12 +1,10 @@
-﻿using Framework.Tenants.Domain;
+﻿using Extenso.Data.Entity;
 using Microsoft.AspNetCore.Identity;
 
 namespace Framework.Identity.Domain
 {
-    public abstract class FrameworkIdentityUser : IdentityUser, ITenantEntity
+    public abstract class FrameworkIdentityUser : IdentityUser, IEntity
     {
-        public int? TenantId { get; set; }
-
         #region IEntity Members
 
         public object[] KeyValues

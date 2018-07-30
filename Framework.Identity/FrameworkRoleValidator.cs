@@ -49,7 +49,7 @@ namespace Framework.Identity
             }
             else
             {
-                var owner = await manager.Roles.FirstOrDefaultAsync(x => x.TenantId == role.TenantId && x.NormalizedName == roleName);
+                var owner = await manager.Roles.FirstOrDefaultAsync(x => x.NormalizedName == roleName);
 
                 if (owner != null &&
                     !string.Equals(await manager.GetRoleIdAsync(owner), await manager.GetRoleIdAsync(role)))

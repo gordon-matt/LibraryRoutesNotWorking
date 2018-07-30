@@ -6,9 +6,7 @@ namespace Framework.Security.Membership
     public class FrameworkRole : IEntity
     {
         public string Id { get; set; }
-
-        public int? TenantId { get; set; }
-
+        
         public string Name { get; set; }
 
         #region IEntity Members

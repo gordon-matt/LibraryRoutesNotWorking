@@ -10,9 +10,7 @@ namespace Framework
         void SetState<T>(string name, T value);
 
         string CurrentCultureCode { get; }
-
-        Tenant CurrentTenant { get; }
-
+        
         FrameworkUser CurrentUser { get; }
     }
 }

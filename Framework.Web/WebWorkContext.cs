@@ -43,46 +43,7 @@ namespace Framework.Web
         public string CurrentCultureCode => "en-US";
 
         public FrameworkUser CurrentUser => GetState<FrameworkUser>(FrameworkConstants.StateProviders.CurrentUser);
-
-        public virtual Tenant CurrentTenant
-        {
-            get
-            {
-                if (cachedTenant != null)
-                {
-                    return cachedTenant;
-                }
-
-                try
-                {
-                    // Try to determine the current tenant by HTTP_HOST
-                    string host = webHelper.GetUrlHost();
-
-                    if (host.Contains(":"))
-                    {
-                        host = host.LeftOf(':');
-                    }
-
-                    var tenantRepository = EngineContext.Current.Resolve<IRepository<Tenant>>();
-                    var allTenants = tenantRepository.Find();
-                    var tenant = allTenants.FirstOrDefault(s => s.ContainsHostValue(host));
-
-                    if (tenant == null)
-                    {
-                        // Load the first found tenant
-                        tenant = allTenants.FirstOrDefault();
-                    }
-
-                    cachedTenant = tenant ?? throw new ApplicationException("No tenant could be loaded");
-                    return cachedTenant;
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-        }
-
+        
         #endregion IWorkContext Members
 
         private Func<object> FindResolverForState<T>(string name)

@@ -33,12 +33,7 @@ namespace Framework.Identity
                 return workContext;
             }
         }
-
-        private int TenantId
-        {
-            get { return WorkContext.CurrentTenant.Id; }
-        }
-
+        
         #endregion Private Properties
 
         public override async Task<IdentityResult> CreateAsync(TRole role, CancellationToken cancellationToken = default(CancellationToken))
@@ -71,8 +66,7 @@ namespace Framework.Identity
 
             return Roles.FirstOrDefaultAsync(
                 r =>
-                    r.NormalizedName == normalizedName
-                    && (r.TenantId == TenantId || (r.TenantId == null)),
+                    r.NormalizedName == normalizedName,
                 cancellationToken);
         }
     }

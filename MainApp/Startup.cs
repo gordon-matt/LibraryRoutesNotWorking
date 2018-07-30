@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using Extenso.Collections;
-using MainApp.Data;
-using MainApp.Data.Domain;
-using MainApp.Identity;
-using MainApp.Services;
 using Framework.Identity.Services;
 using Framework.Infrastructure;
 using Framework.Tenants.Domain;
 using Framework.Web;
+using Framework.Web.CommonResources;
 using Framework.Web.Infrastructure;
 using Framework.Web.Mvc.EmbeddedResources;
 using Framework.Web.Mvc.Razor;
-using Framework.Web.Tenants;
+using MainApp.Data;
+using MainApp.Data.Domain;
+using MainApp.Identity;
+using MainApp.Services;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,7 +38,6 @@ using NLog.Extensions.Logging;
 using NLog.Targets;
 using NLog.Targets.Wrappers;
 using NLog.Web;
-using Framework.Web.CommonResources;
 
 namespace MainApp
 {
@@ -123,8 +122,6 @@ namespace MainApp
                 p.AppendTrailingSlash = true;
                 p.LowercaseUrls = true;
             });
-
-            services.AddMultitenancy<Tenant, FrameworkTenantResolver>();
             
             services.AddOData();
 
@@ -180,7 +177,7 @@ namespace MainApp
             // FRAMEWORK CONFIG
             //===================================================================
             ServiceProvider = services.ConfigureFrameworkServices(Configuration);
-            
+
             return ServiceProvider;
         }
 
@@ -237,9 +234,7 @@ namespace MainApp
                 });
 
             app.UseAuthentication();
-
-            app.UseMultitenancy<Tenant>();
-
+            
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
 
             app.UseMvc(routes =>

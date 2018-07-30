@@ -6,9 +6,7 @@ namespace Framework.Security.Membership
     public class FrameworkUser : IEntity
     {
         public string Id { get; set; }
-
-        public int? TenantId { get; set; }
-
+        
         public string UserName { get; set; }
 
         public string Email { get; set; }

@@ -1,9 +1,9 @@
-﻿using Framework.Tenants.Domain;
+﻿using Extenso.Data.Entity;
 using Microsoft.AspNetCore.Identity;
 
 namespace Framework.Identity.Domain
 {
-    public abstract class FrameworkIdentityRole : IdentityRole, ITenantEntity
+    public abstract class FrameworkIdentityRole : IdentityRole, IEntity
     {
         public FrameworkIdentityRole()
             : base()
@@ -14,9 +14,7 @@ namespace Framework.Identity.Domain
             : base(roleName)
         {
         }
-
-        public int? TenantId { get; set; }
-
+        
         #region IEntity Members
 
         public object[] KeyValues

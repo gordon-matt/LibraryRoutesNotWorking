@@ -14,18 +14,16 @@ namespace Framework.Security.Membership
         Task ConfirmEmail(object userId, string token);
 
         #region Users
+        
+        Task<IEnumerable<FrameworkUser>> GetAllUsers();
 
-        //IQueryable<FrameworkUser> GetAllUsersAsQueryable(DbContext context, int? tenantId);
-
-        Task<IEnumerable<FrameworkUser>> GetAllUsers(int? tenantId);
-
-        Task<IEnumerable<FrameworkUser>> GetUsers(int? tenantId, Expression<Func<FrameworkUser, bool>> predicate);
+        Task<IEnumerable<FrameworkUser>> GetUsers(Expression<Func<FrameworkUser, bool>> predicate);
 
         Task<FrameworkUser> GetUserById(object userId);
 
-        Task<FrameworkUser> GetUserByEmail(int? tenantId, string email);
+        Task<FrameworkUser> GetUserByEmail(string email);
 
-        Task<FrameworkUser> GetUserByName(int? tenantId, string userName);
+        Task<FrameworkUser> GetUserByName(string userName);
 
         Task<IEnumerable<FrameworkRole>> GetRolesForUser(object userId);
 
@@ -35,7 +33,7 @@ namespace Framework.Security.Membership
 
         Task UpdateUser(FrameworkUser user);
 
-        Task AssignUserToRoles(int? tenantId, object userId, IEnumerable<object> roleIds);
+        Task AssignUserToRoles(object userId, IEnumerable<object> roleIds);
 
         Task ChangePassword(object userId, string newPassword);
 
@@ -45,13 +43,13 @@ namespace Framework.Security.Membership
 
         #region Roles
 
-        Task<IEnumerable<FrameworkRole>> GetAllRoles(int? tenantId);
+        Task<IEnumerable<FrameworkRole>> GetAllRoles();
 
         Task<FrameworkRole> GetRoleById(object roleId);
 
         Task<IEnumerable<FrameworkRole>> GetRolesByIds(IEnumerable<object> roleIds);
 
-        Task<FrameworkRole> GetRoleByName(int? tenantId, string roleName);
+        Task<FrameworkRole> GetRoleByName(string roleName);
 
         Task<bool> DeleteRole(object roleId);
 
@@ -61,33 +59,9 @@ namespace Framework.Security.Membership
 
         Task<IEnumerable<FrameworkUser>> GetUsersByRoleId(object roleId);
 
-        Task<IEnumerable<FrameworkUser>> GetUsersByRoleName(int? tenantId, string roleName);
+        Task<IEnumerable<FrameworkUser>> GetUsersByRoleName(string roleName);
 
         #endregion Roles
-        
-        #region Profile
-
-        Task<IDictionary<string, string>> GetProfile(string userId);
-
-        Task<IEnumerable<UserProfile>> GetProfiles(IEnumerable<string> userIds);
-
-        Task UpdateProfile(string userId, IDictionary<string, string> profile, bool deleteExisting = false);
-
-        Task<string> GetProfileEntry(string userId, string key);
-
-        Task SaveProfileEntry(string userId, string key, string value);
-
-        Task DeleteProfileEntry(string userId, string key);
-
-        Task<IEnumerable<FrameworkUserProfileEntry>> GetProfileEntriesByKey(int? tenantId, string key);
-
-        Task<IEnumerable<FrameworkUserProfileEntry>> GetProfileEntriesByKeyAndValue(int? tenantId, string key, string value);
-
-        Task<bool> ProfileEntryExists(int? tenantId, string key, string value, string userId = null);
-
-        #endregion Profile
-
-        Task EnsureAdminRoleForTenant(int? tenantId);
     }
 
     public class UserProfile

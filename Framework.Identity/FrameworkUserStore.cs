@@ -67,12 +67,7 @@ namespace Framework.Identity
                 return workContext;
             }
         }
-
-        private int TenantId
-        {
-            get { return WorkContext.CurrentTenant.Id; }
-        }
-
+        
         #endregion Private Properties
 
         protected override IdentityUserRole<string> CreateUserRole(TUser user, TRole role)
@@ -119,8 +114,7 @@ namespace Framework.Identity
             ThrowIfDisposed();
             return Users.FirstOrDefaultAsync(
                 u =>
-                    u.NormalizedEmail == normalizedEmail
-                    && (u.TenantId == TenantId || (u.TenantId == null)),
+                    u.NormalizedEmail == normalizedEmail,
                 cancellationToken);
         }
 
@@ -130,8 +124,7 @@ namespace Framework.Identity
             ThrowIfDisposed();
             return Users.FirstOrDefaultAsync(
                 u =>
-                    u.NormalizedUserName == normalizedUserName
-                    && (u.TenantId == TenantId || (u.TenantId == null)),
+                    u.NormalizedUserName == normalizedUserName,
                 cancellationToken);
         }
 
@@ -212,8 +205,7 @@ namespace Framework.Identity
         protected override Task<TRole> FindRoleAsync(string normalizedRoleName, CancellationToken cancellationToken)
         {
             return Roles.SingleOrDefaultAsync(r =>
-                r.NormalizedName == normalizedRoleName
-                && (r.TenantId == TenantId || (r.TenantId == null)),
+                r.NormalizedName == normalizedRoleName,
                 cancellationToken);
         }
 
