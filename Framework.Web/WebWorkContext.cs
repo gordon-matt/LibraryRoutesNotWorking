@@ -40,8 +40,7 @@ namespace Framework.Web
 
         public string CurrentTheme
         {
-            get => GetState<string>(FrameworkWebConstants.StateProviders.CurrentTheme);
-            set => SetState(FrameworkWebConstants.StateProviders.CurrentTheme, value);
+            get => "Default";
         }
 
         public string CurrentCultureCode => GetState<string>(FrameworkConstants.StateProviders.CurrentCultureCode);

@@ -5,14 +5,6 @@ using System.Threading.Tasks;
 
 namespace Framework.Security.Membership
 {
-    //public enum UserStatus
-    //{
-    //    NotRegistered = 0,
-    //    Unconfirmed = 1,
-    //    Locked = 2,
-    //    Active = 3
-    //}
-
     public interface IMembershipService
     {
         bool SupportsRolePermissions { get; }
@@ -72,31 +64,7 @@ namespace Framework.Security.Membership
         Task<IEnumerable<FrameworkUser>> GetUsersByRoleName(int? tenantId, string roleName);
 
         #endregion Roles
-
-        #region Permissions
-
-        Task<IEnumerable<FrameworkPermission>> GetAllPermissions(int? tenantId);
-
-        Task<FrameworkPermission> GetPermissionById(object permissionId);
-
-        Task<FrameworkPermission> GetPermissionByName(int? tenantId, string permissionName);
-
-        Task<IEnumerable<FrameworkPermission>> GetPermissionsForRole(int? tenantId, string roleName);
-
-        Task AssignPermissionsToRole(object roleId, IEnumerable<object> permissionIds);
-
-        Task<bool> DeletePermission(object permissionId);
-
-        Task<bool> DeletePermissions(IEnumerable<object> permissionIds);
-
-        Task InsertPermission(FrameworkPermission permission);
-
-        Task InsertPermissions(IEnumerable<FrameworkPermission> permissions);
-
-        Task UpdatePermission(FrameworkPermission permission);
-
-        #endregion Permissions
-
+        
         #region Profile
 
         Task<IDictionary<string, string>> GetProfile(string userId);

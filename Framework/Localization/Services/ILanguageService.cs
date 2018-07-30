@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Extenso.Data.Entity;
-using Framework.Caching;
 using Framework.Data.Services;
 using LanguageEntity = Framework.Localization.Domain.Language;
 
@@ -16,8 +15,8 @@ namespace Framework.Localization.Services
 
     public class LanguageService : GenericDataService<LanguageEntity>, ILanguageService
     {
-        public LanguageService(ICacheManager cacheManager, IRepository<LanguageEntity> repository)
-            : base(cacheManager, repository)
+        public LanguageService(IRepository<LanguageEntity> repository)
+            : base(repository)
         {
         }
 
@@ -45,12 +44,6 @@ namespace Framework.Localization.Services
                 var result = connection.Query(x => x.TenantId == tenantId && x.CultureCode == cultureCode).FirstOrDefault();
                 return result != null && result.IsRTL;
             }
-        }
-
-        protected override void ClearCache()
-        {
-            base.ClearCache();
-            //CacheManager.RemoveByPattern("Repository_Language_RightToLeft_.*");
         }
     }
 }

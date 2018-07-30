@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Extenso.Data.Entity;
-using Framework.Caching;
 using Framework.Data.Services;
 using Framework.Localization.Domain;
 
@@ -20,8 +19,8 @@ namespace Framework.Localization.Services
 
     public class LocalizablePropertyService : GenericDataService<LocalizableProperty>, ILocalizablePropertyService
     {
-        public LocalizablePropertyService(ICacheManager cacheManager, IRepository<LocalizableProperty> repository)
-            : base(cacheManager, repository)
+        public LocalizablePropertyService(IRepository<LocalizableProperty> repository)
+            : base(repository)
         {
         }
 

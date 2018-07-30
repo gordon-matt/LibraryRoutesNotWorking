@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using Extenso.AspNetCore.Mvc;
 using Extenso.AspNetCore.Mvc.Rendering;
-using Framework.ComponentModel;
 using Framework.Infrastructure;
 using Framework.Tenants.Services;
 using Microsoft.AspNetCore.Html;
@@ -73,35 +69,6 @@ namespace Framework.Web.Mvc
         }
 
         #endregion Html Link
-
-        public static IHtmlContent HelpText(this IHtmlHelper html, string helpText, object htmlAttributes = null)
-        {
-            var tagBuilder = new FluentTagBuilder("p")
-                .AddCssClass("help-block")
-                .MergeAttributes(htmlAttributes)
-                .SetInnerHtml(helpText);
-
-            return new HtmlString(tagBuilder.ToString());
-        }
-
-        public static IHtmlContent HelpTextFor<TModel, TProperty>(this IHtmlHelper<TModel> html, Expression<Func<TModel, TProperty>> expression, object htmlAttributes = null)
-        {
-            var memberExpression = expression.Body as MemberExpression;
-            var propertyInfo = (memberExpression.Member as PropertyInfo);
-            var attribute = propertyInfo.GetCustomAttributes().OfType<LocalizedHelpTextAttribute>().FirstOrDefault();
-
-            if (attribute == null)
-            {
-                return HtmlString.Empty;
-            }
-
-            var tagBuilder = new FluentTagBuilder("p")
-                .AddCssClass("help-block")
-                .MergeAttributes(htmlAttributes)
-                .SetInnerHtml(attribute.HelpText);
-
-            return new HtmlString(tagBuilder.ToString());
-        }
 
         public static Framework<TModel> Framework<TModel>(this IHtmlHelper<TModel> html) where TModel : class
         {

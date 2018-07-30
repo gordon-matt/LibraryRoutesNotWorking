@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Framework.Caching;
 using Framework.Localization.Services;
 using Framework.Tenants.Services;
 

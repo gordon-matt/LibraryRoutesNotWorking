@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Extenso.Collections;
-using Framework.Caching;
 using Framework.Infrastructure;
 using Framework.Localization.Domain;
 using Framework.Localization.Services;
@@ -14,7 +13,6 @@ namespace Framework.Localization
     public class FrameworkStringLocalizer : IStringLocalizer
     {
         private CultureInfo culture;
-        private readonly ICacheManager cacheManager;
         private readonly ILocalizableStringService localizableStringService;
         private readonly IWorkContext workContext;
         private readonly object objSync = new object();
@@ -26,11 +24,9 @@ namespace Framework.Localization
         }
 
         public FrameworkStringLocalizer(
-            ICacheManager cacheManager,
             IWorkContext workContext,
             ILocalizableStringService localizableStringService)
         {
-            this.cacheManager = cacheManager;
             this.workContext = workContext;
             this.localizableStringService = localizableStringService;
         }
@@ -59,7 +55,7 @@ namespace Framework.Localization
 
         public IStringLocalizer WithCulture(CultureInfo culture)
         {
-            var stringLocalizer = new FrameworkStringLocalizer(cacheManager, workContext, localizableStringService);
+            var stringLocalizer = new FrameworkStringLocalizer(workContext, localizableStringService);
             stringLocalizer.Culture = culture;
             return stringLocalizer;
         }
@@ -96,10 +92,7 @@ namespace Framework.Localization
         protected virtual IDictionary<string, string> LoadCulture(int tenantId, string cultureCode)
         {
             string cacheKey = string.Concat(FrameworkConstants.CacheKeys.LocalizableStringsFormat, tenantId, cultureCode);
-            return cacheManager.Get(cacheKey, () =>
-            {
-                return LoadTranslationsForCulture(tenantId, cultureCode);
-            });
+            return LoadTranslationsForCulture(tenantId, cultureCode);
         }
 
         protected virtual Dictionary<string, string> LoadTranslationsForCulture(int tenantId, string cultureCode)

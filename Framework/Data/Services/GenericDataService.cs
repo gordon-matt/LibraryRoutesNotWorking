@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Extenso.Data.Entity;
-using Framework.Caching;
 using Framework.Infrastructure;
 using Microsoft.Extensions.Logging;
 
@@ -14,43 +13,11 @@ namespace Framework.Data.Services
     {
         #region Private Members
 
-        private static string cacheKey;
-        private static string cacheKeyFiltered;
-        private readonly ICacheManager cacheManager;
         private readonly IRepository<TEntity> repository;
 
         #endregion Private Members
 
         #region Properties
-
-        protected virtual string CacheKey
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(cacheKey))
-                {
-                    cacheKey = string.Format("Repository_{0}", typeof(TEntity).Name);
-                }
-                return cacheKey;
-            }
-        }
-
-        protected virtual string CacheKeyFiltered
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(cacheKeyFiltered))
-                {
-                    cacheKeyFiltered = string.Format("Repository_{0}_{{0}}", typeof(TEntity).Name);
-                }
-                return cacheKeyFiltered;
-            }
-        }
-
-        public ICacheManager CacheManager
-        {
-            get { return cacheManager; }
-        }
 
         public ILogger Logger { get; private set; }
 
@@ -59,10 +26,8 @@ namespace Framework.Data.Services
         #region Constructor
 
         public GenericDataService(
-            ICacheManager cacheManager,
             IRepository<TEntity> repository)
         {
-            this.cacheManager = cacheManager;
             this.repository = repository;
 
             var loggerFactory = EngineContext.Current.Resolve<ILoggerFactory>();
@@ -77,10 +42,7 @@ namespace Framework.Data.Services
 
         public virtual IEnumerable<TEntity> Find(params Expression<Func<TEntity, dynamic>>[] includePaths)
         {
-            return CacheManager.Get(CacheKey, () =>
-            {
-                return repository.Find(includePaths);
-            });
+            return repository.Find(includePaths);
         }
 
         public virtual IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filterExpression, params Expression<Func<TEntity, dynamic>>[] includePaths)
@@ -90,10 +52,7 @@ namespace Framework.Data.Services
 
         public virtual async Task<IEnumerable<TEntity>> FindAsync(params Expression<Func<TEntity, dynamic>>[] includePaths)
         {
-            return await CacheManager.Get(CacheKey, async () =>
-            {
-                return await repository.FindAsync(includePaths);
-            });
+            return await repository.FindAsync(includePaths);
         }
 
         public virtual async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> filterExpression, params Expression<Func<TEntity, dynamic>>[] includePaths)
@@ -167,35 +126,31 @@ namespace Framework.Data.Services
         public virtual int DeleteAll()
         {
             int rowsAffected = repository.DeleteAll();
-            ClearCache();
             return rowsAffected;
         }
 
         public virtual int Delete(TEntity entity)
         {
             int rowsAffected = repository.Delete(entity);
-            ClearCache();
             return rowsAffected;
         }
 
         public virtual int Delete(IEnumerable<TEntity> entities)
         {
             int rowsAffected = repository.Delete(entities);
-            ClearCache();
             return rowsAffected;
         }
 
         public virtual int Delete(Expression<Func<TEntity, bool>> filterExpression)
         {
             int rowsAffected = repository.Delete(filterExpression);
-            ClearCache();
+
             return rowsAffected;
         }
 
         public virtual int Delete(IQueryable<TEntity> query)
         {
             int rowsAffected = repository.Delete(query);
-            ClearCache();
             return rowsAffected;
         }
 
@@ -231,28 +186,25 @@ namespace Framework.Data.Services
         public virtual int Insert(TEntity entity)
         {
             int rowsAffected = repository.Insert(entity);
-            ClearCache();
             return rowsAffected;
         }
 
         public virtual int Insert(IEnumerable<TEntity> entities)
         {
             int rowsAffected = repository.Insert(entities);
-            ClearCache();
             return rowsAffected;
         }
 
         public virtual async Task<int> InsertAsync(TEntity entity)
         {
             int rowsAffected = await repository.InsertAsync(entity);
-            ClearCache();
             return rowsAffected;
         }
 
         public virtual async Task<int> InsertAsync(IEnumerable<TEntity> entities)
         {
             int rowsAffected = await repository.InsertAsync(entities);
-            ClearCache();
+
             return rowsAffected;
         }
 
@@ -263,39 +215,29 @@ namespace Framework.Data.Services
         public virtual int Update(TEntity entity)
         {
             int rowsAffected = repository.Update(entity);
-            ClearCache();
             return rowsAffected;
         }
 
         public virtual int Update(IEnumerable<TEntity> entities)
         {
             int rowsAffected = repository.Update(entities);
-            ClearCache();
             return rowsAffected;
         }
 
         public virtual async Task<int> UpdateAsync(TEntity entity)
         {
             int rowsAffected = await repository.UpdateAsync(entity);
-            ClearCache();
             return rowsAffected;
         }
 
         public virtual async Task<int> UpdateAsync(IEnumerable<TEntity> entities)
         {
             int rowsAffected = await repository.UpdateAsync(entities);
-            ClearCache();
             return rowsAffected;
         }
 
         #endregion Update
 
         #endregion IGenericDataService<TEntity> Members
-
-        protected virtual void ClearCache()
-        {
-            CacheManager.Remove(CacheKey);
-            CacheManager.RemoveByPattern(string.Format(CacheKeyFiltered, ".*"));
-        }
     }
 }
