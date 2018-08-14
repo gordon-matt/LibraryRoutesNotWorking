@@ -23,7 +23,6 @@
         public static class StateProviders
         {
             public const string CurrentCultureCode = "CurrentCultureCode";
-            public const string CurrentUser = "CurrentUser";
         }
     }
 }

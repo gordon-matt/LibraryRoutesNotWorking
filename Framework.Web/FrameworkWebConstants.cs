@@ -35,7 +35,6 @@
         {
             public const string CurrentCultureCode = "CurrentCultureCode";
             public const string CurrentTheme = "CurrentTheme";
-            public const string CurrentUser = "CurrentUser";
         }
     }
 }

@@ -13,9 +13,6 @@ To run the app, do the following:
 > **NOTE:** Do this from the root directory of the "MainApp" project (not the solution root)
 6. Launch the Visual Studio solution and open the **gulpfile.js** in **Task Runner Explorer**
 7. Run the **bundle** task
-8. Restore the MSSQL database to MSSQL2012 or later. You can find it in the **_Database** folder in the solution root.
-9. Ensure the connection string is correct in **appsettings.json**
-10. Run **MainApp** and browse to **/admin**
-11. Login with the following username and password: **admin@yourSite.com** / **Admin@123**
+8. Run **MainApp** and browse to **/admin**
 
-Once you're in the admin area, try clicking on any of the links. Example: Membership or Configuration -> Tenants. You should notice everything is fine in Visual Studio, but if you now deploy this solution to IIS, you will get 404 messages in the Network tab of the browser's developer tools.
+Once you're in the admin area, click the Tenants menu. You should notice everything is fine in Visual Studio, but if you now deploy this solution to IIS, you will get 404 messages in the Network tab of the browser's developer tools.

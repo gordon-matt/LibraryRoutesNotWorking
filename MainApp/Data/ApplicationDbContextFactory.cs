@@ -1,4 +1,5 @@
-﻿using Extenso.Data.Entity;
+﻿using System;
+using Extenso.Data.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -22,7 +23,7 @@ namespace MainApp.Data
                 if (options == null)
                 {
                     var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-                    optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                    optionsBuilder.UseInMemoryDatabase("LibraryRoutesNotWorking");
                     options = optionsBuilder.Options;
                 }
                 return options;

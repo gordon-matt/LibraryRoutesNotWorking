@@ -1,7 +1,4 @@
-﻿using Framework.Security.Membership;
-using Framework.Tenants.Domain;
-
-namespace Framework
+﻿namespace Framework
 {
     public interface IWorkContext
     {
@@ -10,7 +7,5 @@ namespace Framework
         void SetState<T>(string name, T value);
 
         string CurrentCultureCode { get; }
-        
-        FrameworkUser CurrentUser { get; }
     }
 }

@@ -10,12 +10,6 @@
 
             <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
                 <img src="~/img/male.png" alt="me" class="online" />
-                <span>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <text>@WorkContext.CurrentUser.UserName</text>
-                    }
-                </span>
                 <i class="fa fa-angle-down"></i>
             </a>
         </span>

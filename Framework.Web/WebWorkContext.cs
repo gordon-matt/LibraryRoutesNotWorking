@@ -2,11 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using Extenso;
-using Extenso.Data.Entity;
 using Framework.Infrastructure;
-using Framework.Security.Membership;
-using Framework.Tenants;
 using Framework.Tenants.Domain;
 
 namespace Framework.Web
@@ -42,8 +38,6 @@ namespace Framework.Web
 
         public string CurrentCultureCode => "en-US";
 
-        public FrameworkUser CurrentUser => GetState<FrameworkUser>(FrameworkConstants.StateProviders.CurrentUser);
-        
         #endregion IWorkContext Members
 
         private Func<object> FindResolverForState<T>(string name)

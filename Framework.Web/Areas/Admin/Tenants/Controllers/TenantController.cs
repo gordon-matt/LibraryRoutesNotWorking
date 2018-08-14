@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Framework.Web.Areas.Admin.Tenants.Controllers
 {
-    [Authorize]
     [Area(FrameworkWebConstants.Areas.Tenants)]
     [Route("admin/tenants")]
     public class TenantController : Controller

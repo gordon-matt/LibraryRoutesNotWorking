@@ -2,7 +2,6 @@
 using Extenso.AspNetCore.Mvc.Rendering;
 using Framework.Infrastructure;
 using Framework.Web.Mvc.EmbeddedResources;
-using Framework.Web.Security.Membership;
 
 namespace Framework.Web.Infrastructure
 {
@@ -22,9 +21,6 @@ namespace Framework.Web.Infrastructure
             // Navigation
             builder.RegisterType<AureliaRouteProvider>().As<IAureliaRouteProvider>().SingleInstance();
 
-            // Work Context State Providers
-            builder.RegisterType<CurrentUserStateProvider>().As<IWorkContextStateProvider>();
-            
             // Rendering
             builder.RegisterType<RazorViewRenderService>().As<IRazorViewRenderService>().SingleInstance();
 

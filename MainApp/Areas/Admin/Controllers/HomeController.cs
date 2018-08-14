@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MainApp.Areas.Admin.Controllers
 {
-    [Authorize(Roles = Constants.Roles.Administrators)]
+    //[Authorize(Roles = Constants.Roles.Administrators)]
     [Area("Admin")]
     [Route("admin")]
     public class HomeController : Controller

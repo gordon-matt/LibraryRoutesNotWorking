@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using Extenso.Collections;
-using Framework.Identity.Services;
 using Framework.Infrastructure;
-using Framework.Tenants.Domain;
 using Framework.Web;
 using Framework.Web.CommonResources;
 using Framework.Web.Infrastructure;
@@ -13,8 +11,6 @@ using Framework.Web.Mvc.EmbeddedResources;
 using Framework.Web.Mvc.Razor;
 using MainApp.Data;
 using MainApp.Data.Domain;
-using MainApp.Identity;
-using MainApp.Services;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -77,34 +73,21 @@ namespace MainApp
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationInsightsTelemetry(Configuration);
-
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
-
+            
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseInMemoryDatabase("LibraryRoutesNotWorking"));
 
-            // This must be added BEFORE we call AddIdentity().
-            // For further info, see: https://github.com/aspnet/Identity/issues/1112
-            services.AddScoped(typeof(IRoleValidator<ApplicationRole>), typeof(ApplicationRoleValidator));
-
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = "/account/login";
-                options.LogoutPath = "/account/log-off";
-                options.AccessDeniedPath = "/account/access-denied";
-            });
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.LoginPath = "/account/login";
+            //    options.LogoutPath = "/account/log-off";
+            //    options.AccessDeniedPath = "/account/access-denied";
+            //});
 
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddUserStore<ApplicationUserStore>()
-                .AddRoleStore<ApplicationRoleStore>()
-                //.AddRoleValidator<ApplicationRoleValidator>()
                 .AddDefaultTokenProviders();
-
-            // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
 
             services.AddSingleton<IConfiguration>(Configuration);
 
@@ -122,7 +105,7 @@ namespace MainApp
                 p.AppendTrailingSlash = true;
                 p.LowercaseUrls = true;
             });
-            
+
             services.AddOData();
 
             services.AddMvc(ConfigureMvc)
@@ -234,7 +217,7 @@ namespace MainApp
                 });
 
             app.UseAuthentication();
-            
+
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
 
             app.UseMvc(routes =>

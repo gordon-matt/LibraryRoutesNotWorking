@@ -2,7 +2,6 @@
 using System.Linq;
 using Extenso.Data.Entity;
 using Framework.Infrastructure;
-using Framework.Security.Membership;
 using Framework.Tenants.Domain;
 
 namespace Framework.Web.Infrastructure
@@ -22,8 +21,6 @@ namespace Framework.Web.Infrastructure
             {
                 tenantIds = connection.Query().Select(x => x.Id).ToList();
             }
-
-            var membershipService = EngineContext.Current.Resolve<IMembershipService>();
         }
 
         public int Order

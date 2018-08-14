@@ -1,11 +1,9 @@
 ﻿using Autofac;
 using Extenso.Data.Entity;
 using Framework.Infrastructure;
-using Framework.Security.Membership;
 using Framework.Web.Infrastructure;
 using MainApp.Areas.Admin;
 using MainApp.Data;
-using MainApp.Services;
 
 namespace MainApp.Infrastructure
 {
@@ -26,9 +24,6 @@ namespace MainApp.Infrastructure
 
             // SPA Routes
             builder.RegisterType<AdminAureliaRouteProvider>().As<IAureliaRouteProvider>().SingleInstance();
-
-            // Services
-            builder.RegisterType<MembershipService>().As<IMembershipService>().InstancePerDependency();
         }
     }
 }
